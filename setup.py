@@ -29,6 +29,7 @@ setup(name='plone.app.page',
           'plone.app.deco',
           'plone.app.standardtiles',
           'plone.app.layoutbehavior',
+          'plone.app.blocks',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]

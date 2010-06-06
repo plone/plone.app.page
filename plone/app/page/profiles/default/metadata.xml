@@ -4,5 +4,6 @@
     <dependency>profile-plone.app.dexterity:default</dependency>
     <dependency>profile-plone.app.deco:default</dependency>
     <dependency>profile-plone.app.standardtiles:default</dependency>
+    <dependency>profile-plone.app.blocks:default</dependency>
   </dependencies>
 </metadata>
