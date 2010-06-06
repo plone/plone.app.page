@@ -26,6 +26,7 @@ setup(name='plone.app.page',
       install_requires=[
           'setuptools',
           'plone.app.dexterity',
+          'plone.app.layoutbehavior',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]
