@@ -8,6 +8,8 @@
 
     <!-- Include our dependencies -->
     <include package="plone.app.dexterity" />
+    <include package="plone.app.deco" />
+    <include package="plone.app.standardtiles" />
     <include package="plone.app.layoutbehavior" />
 
     <!-- Grok the package to initialise schema interfaces and content classes -->

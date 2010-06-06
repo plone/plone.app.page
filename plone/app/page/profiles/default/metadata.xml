@@ -2,5 +2,7 @@
   <version>0.1</version>
   <dependencies>
     <dependency>profile-plone.app.dexterity:default</dependency>
+    <dependency>profile-plone.app.deco:default</dependency>
+    <dependency>profile-plone.app.standardtiles:default</dependency>
   </dependencies>
 </metadata>
