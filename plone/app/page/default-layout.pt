@@ -7,15 +7,15 @@
     <link rel="panel" rev="content" target="content" />
 
     <!-- Head elements -->
-    <link  rel="tile" target="plone-htmlhead" href="./@@plone.app.standardtiles.ViewletManagerTile?manager=plone.htmlhead" />
-    <link  rel="tile" target="plone-htmlhead-links" href="./@@plone.app.standardtiles.ViewletManagerTile?manager=plone.htmlhead.links" />
+    <link  rel="tile" target="plone-htmlhead" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.htmlhead" />
+    <link  rel="tile" target="plone-htmlhead-links" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.htmlhead.links" />
 
     <!-- Viewlet managers -->
-    <link  rel="tile" target="plone-portaltop" href="./@@plone.app.standardtiles.ViewletManagerTile?manager=plone.portaltop" />
-    <link  rel="tile" target="viewlet-above-content" href="./@@plone.app.standardtiles.ViewletManagerTile?manager=plone.abovecontent" />
-    <link  rel="tile" target="edit-bar" href="./@@plone.app.standardtiles.ViewletManagerTile?manager=plone.contentviews" />
-    <link  rel="tile" target="viewlet-below-content" href="./@@plone.app.standardtiles.ViewletManagerTile?manager=plone.belowcontent" />
-    <link  rel="tile" target="plone-portalfooter" href="./@@plone.app.standardtiles.ViewletManagerTile?manager=plone.portalfooter" />
+    <link  rel="tile" target="plone-portaltop" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.portaltop" />
+    <link  rel="tile" target="viewlet-above-content" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.abovecontent" />
+    <link  rel="tile" target="edit-bar" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.contentviews" />
+    <link  rel="tile" target="viewlet-below-content" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.belowcontent" />
+    <link  rel="tile" target="plone-portalfooter" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.portalfooter" />
 
     <!-- Head viewlet managers -->
     <div id="plone-htmlhead"/>
