@@ -15,7 +15,12 @@
     <link  rel="tile" target="viewlet-above-content" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.abovecontent" />
     <link  rel="tile" target="edit-bar" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.contentviews" />
     <link  rel="tile" target="viewlet-below-content" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.belowcontent" />
-    <link  rel="tile" target="plone-portalfooter" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.portalfooter" />
+
+    <!-- Portal Footer -->
+    <link  rel="tile" target="footer" href="./@@plone.app.standardtiles.footer" />
+    <link  rel="tile" target="colophon" href="./@@plone.app.standardtiles.colophon" />
+    <link  rel="tile" target="site-actions" href="./@@plone.app.standardtiles.site_actions" />
+    <link  rel="tile" target="analytics" href="./@@plone.app.standardtiles.analytics" />
 
     <!-- Head viewlet managers -->
     <div id="plone-htmlhead"/>
@@ -50,7 +55,10 @@
         </div>
       </div>
 
-      <div id="plone-portalfooter"/>
+      <div id="footer"/>
+      <div id="colophon"/>
+      <div id="site-actions"/>
+      <div id="analytics"/>
 
     </div>
   </body>
