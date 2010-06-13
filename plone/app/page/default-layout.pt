@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>Layout title</title>
@@ -7,8 +7,13 @@
     <link rel="panel" rev="content" target="content" />
 
     <!-- Head elements -->
-    <link  rel="tile" target="resourceregistries" href="./@@plone.app.standardtiles.resourceregistries" />
-    <link  rel="tile" target="plone-htmlhead-links" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.htmlhead.links" />
+    <link  rel="tile" target="stylesheets" href="./@@plone.app.standardtiles.stylesheets" />
+    <link  rel="tile" target="javascripts" href="./@@plone.app.standardtiles.javascripts" />
+    <link  rel="tile" target="authorlink" href="./@@plone.app.standardtiles.authorlink" />
+    <link  rel="tile" target="faviconlink" href="./@@plone.app.standardtiles.faviconlink" />
+    <link  rel="tile" target="navigationlink" href="./@@plone.app.standardtiles.navigationlink" />
+    <link  rel="tile" target="rsslink" href="./@@plone.app.standardtiles.rsslink" />
+    <link  rel="tile" target="searchlink" href="./@@plone.app.standardtiles.searchlink" />
 
     <!-- Viewlet managers -->
     <link  rel="tile" target="plone-portaltop" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.portaltop" />
@@ -22,9 +27,14 @@
     <link  rel="tile" target="site-actions" href="./@@plone.app.standardtiles.site_actions" />
     <link  rel="tile" target="analytics" href="./@@plone.app.standardtiles.analytics" />
 
-    <!-- Head viewlet managers -->
-    <link id="resourceregistries"/>
-    <div id="plone-htmlhead-links"/>
+    <!-- Head tags -->
+    <link id="stylesheets" />
+    <link id="javascripts" />
+    <link id="authorlink" />
+    <link id="faviconlink" />
+    <link id="navigationlink" />
+    <link id="rsslink" />
+    <link id="searchlink" />
   </head>
   <body>
     <div id="visual-portal-wrapper">
