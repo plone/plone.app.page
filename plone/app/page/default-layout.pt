@@ -50,14 +50,7 @@
         <div id="portal-column-content" class="cell width-full position-0">
           <div id="viewlet-above-content"/>
           <div class="documentEditable">
-             <div id="edit-bar"/>
-
-<!--
-             <div metal:use-macro="context/global_statusmessage/macros/portal_message">
-               Status message
-             </div>
--->
-
+            <div id="edit-bar"/>
             <div id="content"/>
           </div>
           <div id="viewlet-below-content"/>
