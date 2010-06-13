@@ -7,7 +7,7 @@
     <link rel="panel" rev="content" target="content" />
 
     <!-- Head elements -->
-    <link  rel="tile" target="plone-htmlhead" href="./@@plone.app.standardtiles.resourceregistries" />
+    <link  rel="tile" target="resourceregistries" href="./@@plone.app.standardtiles.resourceregistries" />
     <link  rel="tile" target="plone-htmlhead-links" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.htmlhead.links" />
 
     <!-- Viewlet managers -->
@@ -23,7 +23,7 @@
     <link  rel="tile" target="analytics" href="./@@plone.app.standardtiles.analytics" />
 
     <!-- Head viewlet managers -->
-    <link id="plone-htmlhead"/>
+    <link id="resourceregistries"/>
     <div id="plone-htmlhead-links"/>
   </head>
   <body>
