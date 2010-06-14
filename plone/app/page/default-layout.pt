@@ -15,9 +15,15 @@
     <link  rel="tile" target="rsslink" href="./@@plone.app.standardtiles.rsslink" />
     <link  rel="tile" target="searchlink" href="./@@plone.app.standardtiles.searchlink" />
 
+    <!-- Portal top -->
+    <link  rel="tile" target="skip-links" href="./@@plone.app.standardtiles.skip_links" />
+    <link  rel="tile" target="personal-bar" href="./@@plone.app.standardtiles.personal_bar" />
+    <link  rel="tile" target="searchbox" href="./@@plone.app.standardtiles.searchbox" />
+    <link  rel="tile" target="logo" href="./@@plone.app.standardtiles.logo" />
+    <link  rel="tile" target="global-sections" href="./@@plone.app.standardtiles.global_sections" />
+
     <!-- Viewlet managers -->
-    <link  rel="tile" target="plone-portaltop" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.portaltop" />
-    <link  rel="tile" target="viewlet-above-content" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.abovecontent" />
+    <link  rel="tile" target="path-bar" href="./@@plone.app.standardtiles.path_bar" />
     <link  rel="tile" target="edit-bar" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.contentviews" />
     <link  rel="tile" target="viewlet-below-content" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.belowcontent" />
 
@@ -41,14 +47,20 @@
 
       <div id="portal-top" class="row">
         <div class="cell width-full position-0">
-          <div id="plone-portaltop"/>
+          <div id="plone-portaltop">
+            <div id="skip-links" />
+            <div id="personal-bar" />
+            <div id="searchbox" />
+            <div id="logo" />
+            <div id="global-sections" />
+          </div>
         </div>
       </div>
 
       <div id="portal-columns" class="row">
 
         <div id="portal-column-content" class="cell width-full position-0">
-          <div id="viewlet-above-content"/>
+          <div id="path-bar"/>
           <div class="documentEditable">
             <div id="edit-bar"/>
             <div id="content"/>
