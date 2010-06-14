@@ -22,10 +22,12 @@
     <link  rel="tile" target="logo" href="./@@plone.app.standardtiles.logo" />
     <link  rel="tile" target="global-sections" href="./@@plone.app.standardtiles.global_sections" />
 
-    <!-- Viewlet managers -->
+    <!-- Above content -->
     <link  rel="tile" target="path-bar" href="./@@plone.app.standardtiles.path_bar" />
-    <link  rel="tile" target="edit-bar" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.contentviews" />
-    <link  rel="tile" target="viewlet-below-content" href="./@@plone.app.standardtiles.viewletmanager?manager=plone.belowcontent" />
+
+    <!-- Edit bar -->
+    <link  rel="tile" target="contentactions" href="./@@plone.app.standardtiles.contentactions" />
+    <link  rel="tile" target="contentviews" href="./@@plone.app.standardtiles.contentviews" />
 
     <!-- Portal Footer -->
     <link  rel="tile" target="footer" href="./@@plone.app.standardtiles.footer" />
@@ -60,20 +62,21 @@
       <div id="portal-columns" class="row">
 
         <div id="portal-column-content" class="cell width-full position-0">
-          <div id="path-bar"/>
+          <div id="path-bar" />
           <div class="documentEditable">
-            <div id="edit-bar"/>
-            <div id="content"/>
+            <div id="edit-bar">
+              <div id="contentviews" />
+              <div id="contentactions" />
+            </div>
+            <div id="content" />
           </div>
-          <div id="viewlet-below-content"/>
-
         </div>
       </div>
 
-      <div id="footer"/>
-      <div id="colophon"/>
-      <div id="site-actions"/>
-      <div id="analytics"/>
+      <div id="footer" />
+      <div id="colophon" />
+      <div id="site-actions" />
+      <div id="analytics" />
 
     </div>
   </body>
