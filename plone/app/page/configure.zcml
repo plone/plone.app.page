@@ -32,4 +32,13 @@
         template="default-layout.pt"
         />
 
+    <!-- disable KSS inline validation for pages -->
+    <browser:page
+        name="kss_z3cform_inline_validation"
+        for="plone.app.page.page.IPage"
+        class=".disablekss.NullFormValidation"
+        attribute="validate_input"
+        permission="zope2.View"
+        />
+
 </configure>
