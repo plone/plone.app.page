@@ -25,6 +25,7 @@
 
     <!-- Above content -->
     <link  rel="tile" target="path-bar" href="./@@plone.app.standardtiles.path_bar" />
+    <link  rel="tile" target="lockinfo" href="./@@plone.app.standardtiles.lockinfo" />
 
     <!-- Edit bar -->
     <link  rel="tile" target="contentactions" href="./@@plone.app.standardtiles.contentactions" />
@@ -64,6 +65,7 @@
 
         <div id="portal-column-content" class="cell width-3:4 position-0">
           <div id="path-bar" />
+          <div id="lockinfo" />
           <div class="documentEditable">
             <div id="edit-bar">
               <div id="contentviews" />
