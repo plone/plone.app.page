@@ -43,6 +43,11 @@
   <body>
     <div id="visual-portal-wrapper">
 
+      <div id="edit-bar">
+        <div id="contentviews" />
+        <div id="contentactions" />
+      </div>
+
       <div id="portal-top" class="row">
         <div class="cell width-full position-0">
           <div id="plone-portaltop">
@@ -62,10 +67,6 @@
           <div id="path-bar" />
           <div id="lockinfo" />
           <div class="documentEditable">
-            <div id="edit-bar">
-              <div id="contentviews" />
-              <div id="contentactions" />
-            </div>
             <div id="content" />
           </div>
         </div>
