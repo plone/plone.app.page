@@ -32,6 +32,11 @@
         template="default-layout.pt"
         />
 
+    <browser:resourceDirectory
+        name="plone.app.page.images"
+        directory="images"
+        />
+
     <!-- disable KSS inline validation for pages -->
     <browser:page
         name="kss_z3cform_inline_validation"

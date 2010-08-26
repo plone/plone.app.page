@@ -6,7 +6,7 @@
   <!-- Basic information -->
   <property name="title">Page</property>
   <property name="description" i18n:translate="">A page in the site.</property>
-  <property name="content_icon">document_icon.gif</property>
+  <property name="content_icon">++resource++plone.app.page.images/document_icon.gif</property>
   <property name="global_allow">True</property>
   <property name="allow_discussion">False</property>
 
