@@ -8,13 +8,13 @@
     <link rel="panel" rev="portal-column-two" target="portal-column-two" />
 
     <!-- Head elements -->
-    <link  rel="tile" target="stylesheets" href="./@@plone.app.standardtiles.stylesheets" />
-    <link  rel="tile" target="javascripts" href="./@@plone.app.standardtiles.javascripts" />
-    <link  rel="tile" target="authorlink" href="./@@plone.app.standardtiles.authorlink" />
-    <link  rel="tile" target="faviconlink" href="./@@plone.app.standardtiles.faviconlink" />
-    <link  rel="tile" target="navigationlink" href="./@@plone.app.standardtiles.navigationlink" />
-    <link  rel="tile" target="rsslink" href="./@@plone.app.standardtiles.rsslink" />
-    <link  rel="tile" target="searchlink" href="./@@plone.app.standardtiles.searchlink" />
+    <link  rel="tile" href="./@@plone.app.standardtiles.stylesheets" />
+    <link  rel="tile" href="./@@plone.app.standardtiles.javascripts" />
+    <link  rel="tile" href="./@@plone.app.standardtiles.authorlink" />
+    <link  rel="tile" href="./@@plone.app.standardtiles.faviconlink" />
+    <link  rel="tile" href="./@@plone.app.standardtiles.navigationlink" />
+    <link  rel="tile" href="./@@plone.app.standardtiles.rsslink" />
+    <link  rel="tile" href="./@@plone.app.standardtiles.searchlink" />
 
     <!-- Portal top -->
     <link  rel="tile" target="skip-links" href="./@@plone.app.standardtiles.skip_links" />
@@ -39,15 +39,6 @@
     <link  rel="tile" target="colophon" href="./@@plone.app.standardtiles.colophon" />
     <link  rel="tile" target="site-actions" href="./@@plone.app.standardtiles.site_actions" />
     <link  rel="tile" target="analytics" href="./@@plone.app.standardtiles.analytics" />
-
-    <!-- Head tags -->
-    <link id="stylesheets" />
-    <link id="javascripts" />
-    <link id="authorlink" />
-    <link id="faviconlink" />
-    <link id="navigationlink" />
-    <link id="rsslink" />
-    <link id="searchlink" />
   </head>
   <body>
     <div id="visual-portal-wrapper">
