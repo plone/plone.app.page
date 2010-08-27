@@ -46,4 +46,6 @@
         permission="zope2.View"
         />
 
+    <adapter factory=".form.form_template_factory" />
+
 </configure>

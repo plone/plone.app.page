@@ -3,6 +3,7 @@
 
 from five import grok
 from zope import schema
+from zope.interface import Interface, implements
 
 from plone.directives import form, dexterity
 from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
@@ -45,3 +46,17 @@ class View(grok.View):
         This result is supposed to be transformed by plone.app.blocks.
         """
         return ILayout(self.context).content
+
+
+class IFormDecoLayout(Interface):
+    """Marker interface for forms to be wrapped in a Deco interface."""
+
+
+class EditForm(dexterity.EditForm):
+    implements(IFormDecoLayout)
+    grok.context(IPage)
+
+
+class AddForm(dexterity.AddForm):
+    implements(IFormDecoLayout)
+    grok.name('plone.app.page')
