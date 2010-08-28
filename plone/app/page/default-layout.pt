@@ -32,7 +32,6 @@
     <!-- Edit bar -->
     <link  rel="tile" target="contentactions" href="./@@plone.app.standardtiles.contentactions" />
     <link  rel="tile" target="contentviews" href="./@@plone.app.standardtiles.contentviews" />
-    <link  rel="tile" target="document-byline" href="./@@plone.app.standardtiles.document_byline" />
 
     <!-- Portal Footer -->
     <link  rel="tile" target="footer" href="./@@plone.app.standardtiles.footer" />
@@ -73,7 +72,6 @@
         <div class="cell width-1:4 position-3:4">
           <div id="portal-column-two">
             <div id="login" />
-            <div id="document-byline" />
           </div>
         </div>
       </div>
