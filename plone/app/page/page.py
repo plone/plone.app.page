@@ -10,6 +10,7 @@ from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 
 from plone.app.layoutbehavior import ILayout
 
+
 class IPage(form.Schema):
 
     # The default fieldset
@@ -31,9 +32,6 @@ class IPage(form.Schema):
             required=False,
         )
 
-class Page(dexterity.Container):
-    grok.implements(IPage)
-
 
 class View(grok.View):
     grok.context(IPage)
@@ -41,8 +39,8 @@ class View(grok.View):
 
     def render(self):
         """
-        Render the contents of the "content" field coming from 
-        the plone.app.layoutbehavior behavior. 
+        Render the contents of the "content" field coming from
+        the plone.app.layoutbehavior behavior.
         This result is supposed to be transformed by plone.app.blocks.
         """
         return ILayout(self.context).content
