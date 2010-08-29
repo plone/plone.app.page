@@ -84,10 +84,14 @@
         </div>
       </div>
 
-      <div id="footer" />
-      <div id="colophon" />
-      <div id="site-actions" />
-      <div id="analytics" />
+      <div class="row">
+        <div class="cell width-full position-0">
+          <div id="footer" />
+          <div id="colophon" />
+          <div id="site-actions" />
+          <div id="analytics" />
+        </div>
+      </div>
 
     </div>
   </body>
