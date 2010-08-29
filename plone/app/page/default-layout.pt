@@ -24,7 +24,7 @@
     <link  rel="tile" target="global-sections" href="./@@plone.app.standardtiles.global_sections" />
 
     <!-- Column One -->
-    <link  rel="tile" target="navigation" href="./@@plone.app.standardtiles.site_actions" />
+    <link  rel="tile" target="navigation" href="./@@plone.app.standardtiles.navigation/tile-1?name=None&amp;amp;root=None&amp;amp;includeTop%3Aboolean=&amp;amp;currentFolderOnly%3Aboolean=&amp;amp;topLevel%3Along=1&amp;amp;bottomLevel%3Along=0" />
     <link  rel="tile" target="login" href="./@@plone.app.standardtiles.login" />
 
     <!-- Above content -->
