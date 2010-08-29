@@ -20,9 +20,12 @@
     <link  rel="tile" target="personal-bar" href="./@@plone.app.standardtiles.personal_bar" />
     <link  rel="tile" target="languageselector" href="./@@plone.app.standardtiles.languageselector" />
     <link  rel="tile" target="searchbox" href="./@@plone.app.standardtiles.searchbox" />
-    <link  rel="tile" target="login" href="./@@plone.app.standardtiles.login" />
     <link  rel="tile" target="logo" href="./@@plone.app.standardtiles.logo" />
     <link  rel="tile" target="global-sections" href="./@@plone.app.standardtiles.global_sections" />
+
+    <!-- Column One -->
+    <link  rel="tile" target="navigation" href="./@@plone.app.standardtiles.site_actions" />
+    <link  rel="tile" target="login" href="./@@plone.app.standardtiles.login" />
 
     <!-- Above content -->
     <link  rel="tile" target="path-bar" href="./@@plone.app.standardtiles.path_bar" />
@@ -63,7 +66,13 @@
 
       <div id="portal-columns" class="row">
 
-        <div id="portal-column-content" class="cell width-3:4 position-0">
+        <div class="cell width-1:4 position-0">
+          <div id="portal-column-one">
+            <div id="navigation" />
+            <div id="login" />
+          </div>
+        </div>
+        <div id="portal-column-content" class="cell width-1:2 position-1:4">
           <div id="path-bar" />
           <div id="lockinfo" />
           <div class="documentEditable">
@@ -71,9 +80,7 @@
           </div>
         </div>
         <div class="cell width-1:4 position-3:4">
-          <div id="portal-column-two">
-            <div id="login" />
-          </div>
+          <div id="portal-column-two"></div>
         </div>
       </div>
 
