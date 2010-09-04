@@ -1,8 +1,95 @@
 Changelog
 =========
 
-0.1 - Unreleased
+0.1 (unreleased)
 ----------------
 
-* Initial release
+- Set the type name as plone.app.page and cleanup unnecessary code.
+  [dukebody]
 
+- Added navigation tile to default layout.
+  Removed panel from form template.
+  [robgietema]
+
+- Removed empty lines.
+  [robgietema]
+
+- Added grid around footer.
+  [robgietema]
+
+- Added column one.
+  [robgietema]
+
+- Place the head title tile in the default layout.
+  [dukebody]
+
+- Add the language selector tile to the layout.
+  [dukebody]
+
+- Removed document by line form column two.
+  [robgietema]
+
+- Use blocks with the default-layout in the edit and add views of Page.
+  Refs #10977.
+  [dukebody]
+
+- Added icon to contenttype.
+  [robgietema]
+
+- Moved editbar to top.
+  [robgietema]
+
+- Make use of new feature in p.a.block to not need a target attribute.
+  [robgietema]
+
+- Added document_byline and login to default layout
+  [ralphjacobs]
+
+- Added lockinfo viewlet to default-layout.pt
+  [jbaumann]
+
+- Disable inline kss validation for Pages.
+  [dukebody]
+
+- Added column two to default layout.
+  [robgietema]
+
+- Updated default layout with new tiles.
+  [robgietema]
+
+- Updated layout to use new tiles.
+  [robgietema]
+
+- Removed portal message.
+  [robgietema]
+
+- Updated default layout to use head tiles.
+  [robgietema]
+
+- Updated id to match functionality.
+  [robgietema]
+
+- Updated default layout to use resource registries tile.
+  [robgietema]
+
+- The default layout now uses the footer tiles.
+  [robgietema]
+
+- Adapt to the new viewlet manager tile name.
+  [dukebody]
+
+- Fixed viewlet manager includes.
+  [robgietema]
+
+- Added default layout.
+  Added blocks dependency.
+  [robgietema]
+
+- Fixed dependencies.
+  [robgietema]
+
+- Fixed dependencies.
+  [robgietema]
+
+- Initial checkin.
+  [robgietema]
