@@ -12,25 +12,7 @@ from plone.app.layoutbehavior import ILayout
 
 
 class IPage(form.Schema):
-
-    # The default fieldset
-
-    date = schema.Datetime(
-            title=u"Date",
-            required=False,
-        )
-
-    agenda = schema.Text(
-            title=u"Agenda",
-            required=False,
-        )
-    form.widget(agenda=WysiwygFieldWidget)
-
-    recurrence = schema.Choice(
-            title = u"Recurrence",
-            values=('Yearly', 'Monthly', 'Weekly', 'Daily', 'Does not recur'),
-            required=False,
-        )
+      """Page schema"""
 
 
 class View(grok.View):
