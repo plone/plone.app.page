@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
-<object name="plone.app.page" meta_type="Dexterity FTI"
+<object name="plone.app.page"
+        meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-        i18n:domain="plone.app.page">
+        i18n:domain="plone">
 
   <!-- Basic information -->
   <property name="title">Page</property>
   <property name="description" i18n:translate="">A page in the site.</property>
-  <property name="content_icon">++resource++plone.app.page.images/document_icon.gif</property>
+  <property name="content_icon">++resource++plone.app.page.images/page_icon.gif</property>
   <property name="global_allow">True</property>
   <property name="allow_discussion">False</property>
 

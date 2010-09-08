@@ -6,7 +6,6 @@ from zope import schema
 from zope.interface import Interface, implements
 
 from plone.directives import form, dexterity
-from plone.app.z3cform.wysiwyg import WysiwygFieldWidget
 
 from plone.app.layoutbehavior import ILayout
 
