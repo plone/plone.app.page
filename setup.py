@@ -31,9 +31,6 @@ setup(name='plone.app.page',
           'plone.app.layoutbehavior',
           'plone.app.blocks',
       ],
-      extras_require={
-          'test': [
-            'niteoweb.windmill', ]},
       entry_points="""
       [z3c.autoinclude.plugin]
       target = plone
