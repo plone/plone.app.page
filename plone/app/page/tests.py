@@ -9,8 +9,6 @@ from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 
-from plone.app.page.page import Page
-
 
 @onsetup
 def setup_product():
@@ -27,7 +25,7 @@ class IntegrationTests(ptc.PloneTestCase):
         
         # Ensure that invokeFactory() works as with normal types
         
-        self.folder.invokeFactory('plone.page', 'dp')
+        self.folder.invokeFactory('plone.app.page', 'dp')
 
     def test_attributes_and_reindexing(self):
 
@@ -35,7 +33,7 @@ class IntegrationTests(ptc.PloneTestCase):
         # automatically get the attributes specified in their model, and
         # that content is reindexed when an IObjectModified event is fired.
 
-        self.folder.invokeFactory('plone.page', 'dp', title="Old title")
+        self.folder.invokeFactory('plone.app.page', 'dp', title="Old title")
         self.assertEquals("Old title", self.folder.dp.title)
 
         self.folder.dp.title = "New Title"
