@@ -25,13 +25,6 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
-    <browser:page
-        name="default-layout"
-        for="*"
-        permission="zope2.View"
-        template="default-layout.pt"
-        />
-
     <browser:resourceDirectory
         name="plone.app.page.images"
         directory="images"
