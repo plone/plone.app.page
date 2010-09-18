@@ -11,7 +11,7 @@ from plone.app.layoutbehavior import ILayout
 
 
 class IPage(form.Schema):
-      """Page schema"""
+    """Page schema"""
 
 
 class IFormDecoLayout(Interface):

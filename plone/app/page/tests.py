@@ -22,14 +22,14 @@ ptc.setupPloneSite(products=['plone.app.page'])
 class IntegrationTests(ptc.PloneTestCase):
 
     def test_adding(self):
-        
+
         # Ensure that invokeFactory() works as with normal types
-        
+
         self.folder.invokeFactory('plone.app.page', 'dp')
 
     def test_attributes_and_reindexing(self):
 
-        # Demonstrate that dynamic types such as plone.page 
+        # Demonstrate that dynamic types such as plone.page
         # automatically get the attributes specified in their model, and
         # that content is reindexed when an IObjectModified event is fired.
 
@@ -43,6 +43,7 @@ class IntegrationTests(ptc.PloneTestCase):
 
         results = self.portal.portal_catalog(Title="New title")
         self.assertEquals(1, len(results))
+
 
 def test_suite():
     suite = unittest.TestSuite()

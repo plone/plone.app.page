@@ -9,7 +9,7 @@ class NullFormValidation(PloneKSSView):
     we find a way to make plone.z3c.form calculate and use the form
     name correctly.
     """
-    
+
     @kssaction
     def validate_input(self, *args):
         return
