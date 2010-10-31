@@ -1,31 +1,24 @@
-import unittest
-import plone.app.page
+import unittest2 as unittest
+import doctest
 
 from zope.component import getMultiAdapter
 
 from zope.lifecycleevent import modified
 
-from Products.Five import zcml
-from Products.PloneTestCase import PloneTestCase as ptc
-from Products.PloneTestCase.layer import onsetup
+from plone.app.page import testing
+
+OPTIONFLAGS = doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE
 
 
-@onsetup
-def setup_product():
-    zcml.load_config('meta.zcml', plone.app.page)
-    zcml.load_config('configure.zcml', plone.app.page)
+class IntegrationTests(unittest.TestCase):
 
-setup_product()
-ptc.setupPloneSite(products=['plone.app.page'])
-
-
-class IntegrationTests(ptc.PloneTestCase):
+    layer = testing.DECO_PAGE_INTEGRATION_TESTING
 
     def test_adding(self):
 
         # Ensure that invokeFactory() works as with normal types
 
-        self.folder.invokeFactory('plone.app.page', 'dp')
+        self.layer['folder'].invokeFactory('plone.app.page', 'dp')
 
     def test_attributes_and_reindexing(self):
 
@@ -33,15 +26,16 @@ class IntegrationTests(ptc.PloneTestCase):
         # automatically get the attributes specified in their model, and
         # that content is reindexed when an IObjectModified event is fired.
 
-        self.folder.invokeFactory('plone.app.page', 'dp', title="Old title")
-        self.assertEquals("Old title", self.folder.dp.title)
+        folder = self.layer['folder']
+        folder.invokeFactory('plone.app.page', 'dp', title="Old title")
+        self.assertEquals("Old title", folder.dp.title)
 
-        self.folder.dp.title = "New Title"
-        modified(self.folder.dp)
+        folder.dp.title = "New Title"
+        modified(folder.dp)
 
-        self.assertEquals("New Title", self.folder.dp.title)
+        self.assertEquals("New Title", folder.dp.title)
 
-        results = self.portal.portal_catalog(Title="New title")
+        results = self.layer['portal'].portal_catalog(Title="New title")
         self.assertEquals(1, len(results))
 
 
