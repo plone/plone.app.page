@@ -2,21 +2,15 @@
 """
 
 from five import grok
-from zope import schema
-from zope.interface import Interface, implements
+from zope.interface import implements
 
 from plone.directives import form, dexterity
 
 from plone.app.layoutbehavior import ILayout
-
+from plone.app.page.interfaces import IFormDecoLayout
 
 class IPage(form.Schema):
     """Page schema"""
-
-
-class IFormDecoLayout(Interface):
-    """Marker interface for forms to be wrapped in a Deco interface."""
-
 
 class EditForm(dexterity.EditForm):
     implements(IFormDecoLayout)
