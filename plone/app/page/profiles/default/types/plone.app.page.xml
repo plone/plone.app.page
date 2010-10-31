@@ -31,7 +31,7 @@
 
   <!-- View information -->
   <property name="default_view">view</property>
-  <property name="default_view_fallback">False</property>
+  <property name="default_view_fallback">True</property>
   <property name="view_methods">
     <element value="view"/>
   </property>
