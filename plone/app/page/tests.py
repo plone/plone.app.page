@@ -1,7 +1,9 @@
 import unittest2 as unittest
 import doctest
 
-from zope.component import getMultiAdapter
+from zope.component import getUtility
+
+from plone.behavior.interfaces import IBehavior
 
 from zope.lifecycleevent import modified
 
@@ -37,6 +39,14 @@ class IntegrationTests(unittest.TestCase):
 
         results = self.layer['portal'].portal_catalog(Title="New title")
         self.assertEquals(1, len(results))
+    
+    def test_behavior_registered(self):
+        from plone.app.page.behavior import ILayout
+        
+        behavior = getUtility(IBehavior, name=u"plone.app.page.behavior.ILayout")
+        self.assertEqual(behavior.title, u'Layout support')
+        self.assertEqual(behavior.interface, ILayout)
+        self.assertEqual(behavior.marker, ILayout) 
 
 
 def test_suite():

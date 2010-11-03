@@ -6,16 +6,18 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="plone">
 
-    <!-- Include our dependencies -->
+    <include package="plone.behavior" file="meta.zcml" />
     <include package="plone.app.dexterity" />
-    <include package="plone.app.deco" />
-    <include package="plone.app.standardtiles" />
-    <include package="plone.app.layoutbehavior" />
-    <include package="plone.app.blocks" />
-
+    
     <!-- Grok the package to initialise schema interfaces and content classes -->
     <grok:grok package="." />
-
+    
+    <!-- Register the resource directory -->
+    <browser:resourceDirectory
+        name="plone.app.page.images"
+        directory="images"
+        />
+    
     <!-- Register an extension profile to make the product installable -->
     <genericsetup:registerProfile
         name="default"
@@ -24,21 +26,12 @@
         directory="profiles/default"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
-
-    <browser:resourceDirectory
-        name="plone.app.page.images"
-        directory="images"
+    
+    <!-- Register the layout behavior -->
+    <plone:behavior
+        title="Layout support"
+        description="Adds layout support to your content type"
+        provides=".behavior.ILayout"
         />
-
-    <!-- disable KSS inline validation for pages -->
-    <browser:page
-        name="kss_z3cform_inline_validation"
-        for="plone.app.page.page.IPage"
-        class=".disablekss.NullFormValidation"
-        attribute="validate_input"
-        permission="zope2.View"
-        />
-
-    <adapter factory=".form.form_template_factory" />
 
 </configure>

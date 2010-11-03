@@ -18,15 +18,15 @@
   <property name="add_permission">cmf.AddPortalContent</property>
 
   <!-- Schema - here described inline for TTW editing -->
-  <property name="schema">plone.app.page.page.IPage</property>
+  <property name="schema">plone.app.page.content.IPage</property>
   <property name="model_source"></property>
   <property name="model_file"></property>
 
   <!-- List of enabled behaviors -->
   <property name="behaviors">
-    <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
     <element value="plone.app.content.interfaces.INameFromTitle" />
-    <element value="plone.app.layoutbehavior.ILayout" />
+    <element value="plone.app.dexterity.behaviors.metadata.IDublinCore" />
+    <element value="plone.app.page.behavior.ILayout" />
   </property>
 
   <!-- View information -->
