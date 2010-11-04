@@ -26,6 +26,9 @@ setup(name='plone.app.page',
           'setuptools',
           'plone.app.dexterity',
       ],
+      extras_require = {
+          'test': ['plone.app.testing', ],
+      },
       entry_points="""
       [z3c.autoinclude.plugin]
       target = plone
