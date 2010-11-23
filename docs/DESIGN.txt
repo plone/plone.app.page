@@ -1,0 +1,453 @@
+Requirements
+============
+
+As a content author, I can add a page anywhere in the site where I have permission to do so
+-------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. User goes to relevant section
+    #. User clicks Add button
+    #. An overlay appears with icons for each available content type; all
+       page content types are collapsed into a single button for Page
+    #. User opts to add a page. An area expands where the user can chose the
+       category to use and enter the page title.
+    #. User clicks Create.
+        * A new page is created immediately
+        * Uses the default workflow for this category
+        * Uses the default site layout for this category
+        * Uses the default page layout for this category
+    #. User is taken to the Deco edit page for this page
+
+Components:
+
+    * Factories menu from ``plone.app.contentmenu``
+    * ``getPageTypes()``
+    * ``getDefaultSiteLayout()``
+
+As a content author, I can insert text tiles into a page
+--------------------------------------------------------
+
+Flow:
+    
+    #. User uses Deco tile insert menu to insert text tiles
+        * Text tile is created inside the relevant grid cell
+    #. User can move units of text tiles around independently
+        * Paragraphs
+        * Images
+        * Tables
+        * Ordered lists
+        * Unordered lists
+        * Definition lists
+    #. User can create new grid columns inside the current panel by dragging
+       a text tile unit
+
+As a content author, I can insert field tiles for Dublin Core fields into a page
+--------------------------------------------------------------------------------
+
+Flow:
+
+    #. User uses Deco tile insert menu to insert a field tile
+        * Field tile is created inside the relevant grid cell
+    #. User can edit field inline for basic HTML elements
+
+**TODO:** Review how the field tile works - what limitations do we have for
+field types?
+
+As a content author, I can insert app tiles into a page
+-------------------------------------------------------
+
+Flow:
+
+    #. User uses Deco tile insert menu to insert an app tile
+        * App tile is created inside the relevant grid cell
+
+As a content author, I can edit the settings of tiles I have inserted
+---------------------------------------------------------------------
+
+Flow:
+
+    #. User clicks the "edit" icon on a relevant tile
+    #. An overlay appears with relevant settings
+        * The underlying field for field tiles
+        * A custom form for app tiles with schemata
+
+As a content author, I can edit field values not in field tiles using a metadata editor
+---------------------------------------------------------------------------------------
+
+Flow:
+
+    #. User clicks the "metadata" button
+    #. An overlay appears with tabbed fieldsets of all fields not included
+        in the page as field tiles
+
+As a content author, I can move tiles around the grid of a page
+---------------------------------------------------------------
+
+Flow:
+
+    #. User drags a tile to the relevant position
+    #. New columns cannot be added, but tiles can be moved above/below each
+       other
+    #. Where applicable, a tile can be dragged from one panel to another,
+       in which case it becomes part of the grid of the new panel
+
+As a content author, I can change the grid of a page if I have permission to edit the layout
+--------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. User has "can edit layout" permission
+    #. User drags a tile to the relevant position
+    #. Where applicable, new rows or columns are created in the grid inside
+       a given panel
+    #. Where applicable, a tile can be dragged from one panel to another,
+       in which case it becomes part of the grid of the new panel
+
+**TODO:** Define permission
+
+As a content author, I can change the contents and settings of tiles, even if I do not have 'change layout' permissions
+-----------------------------------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. User does not have "can edit layout" permission
+    #. User clicks on a text tile
+        * User can edit text tile contents
+    #. User inserts a new text tile
+        * Use can insert above/below any existing tile in an existing grid
+          cell
+
+As a content author, I can change the layout of a page by choosing a different layout template
+----------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. User edits an existing page
+    #. User clicks button to change layout template
+    #. User chooses a new layout template that's available for the current
+       content type
+    #. Template is re-applied
+        * Tiles in panels that exist in both templates are moved as-is
+        * Tiles in panels that do not exist in the new template are deleted
+        * Panels that exist only in the new template are filled with the
+          (placeholder) tiles from the layout template 
+
+**TODO:** Do we need to keep a list of available template page layout in the
+category FTI?
+
+As a content author, I can save a copy of a page as a template page layout
+--------------------------------------------------------------------------
+
+
+Flow:
+
+    #. User edits a page
+    #. User clicks "Save as template" button
+    #. An overlay appears asking the user to give a name and description for
+        the template page layout
+    #. The template page layout is saved and now available on other content
+       items
+
+**TODO:** Do we need to manage template page layouts by category?
+
+As a content author, I can change the site layout applied to my page
+--------------------------------------------------------------------
+
+Flow:
+
+    #. User edits an existing page
+    #. User clicks button to change site layout
+    #. User chooses a new site layout
+    #. Page is rendered inside the new site layout
+        * Tiles in panels that exist in both templates are moved as-is
+        * Tiles in panels that do not exist in the new template are hidden
+        * Panels that exist only in the new template are filled with the
+          (placeholder) tiles from the layout template 
+
+**TODO:** Define metadata/enumeration of site layouts
+
+As a content author, I can change the site layout applied to the section underneath my page
+-------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. User edits an existing page
+    #. User clicks button to change site layout for pages in the current section
+    #. Settings are saved with the page
+
+Components:
+
+    * ``sectionLayout`` attribute of ``ILayout`` behaviour
+    * ``getDefaultSiteLayout()`` in ``plone.app.page.utils``
+
+**TODO:** Define metadata/enumeration of site layouts
+
+As an administrator, I can edit the site layout and insert tiles
+----------------------------------------------------------------
+
+Flow:
+
+    #. Administrator goes to layouts control panel
+    #. Administrator selects from list of currently available site layouts
+    #. Administrator edits grid and inserts tiles in the same way as a page is edited
+        * A layout currently on the filesystem is copied to the ZODB
+
+Components:
+
+    * ``plone.resource`` type for ``sitelayout``
+
+As an administrator, I can designate panels in the site layout usually occupied by content
+------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. Administrator creates a site layout grid with relevant tiles, including
+        placeholders where content is meant to be shown
+    #. Administrator selects a grid cell and clicks the "placeholder" button
+    #. An overlay appears allowing the administrator to give the placeholder a name
+        * Note: Exactly one panel must have the name "content"
+    #. Deco adds the relevant markup to designate this grid cell a panel
+
+**TODO:** Ensure we can both insert multiple text/app/field tiles in the
+placeholder panel and effectively mark the region.
+
+As an administrator, I can create new categories, associated with a default layout and a default set of behaviours
+------------------------------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. Administrator goes to the types/categories control panel
+    #. Administrator selects an existing category (e.g. "Page", the default),
+        and clicks "Clone"
+    #. An overlay appears asking for a new name and description
+    #. A new category is created with values copied from the original
+    #. Administrator can now edit properties (e.g. icon, child object
+        filtering, default site layout, template page layout)
+
+Components:
+
+    * ``clonePageType()`` in ``plone.app.page.utils``
+
+**TODO:** Do we want to allow the administrator to create new template layouts
+"on the fly"?
+
+As a content author, I can apply a behaviour to a page
+------------------------------------------------------
+
+Flow:
+
+    #. User edits a page
+    #. User clicks "apply behaviour"
+    #. An overlay appears, giving the user a choice of behaviours with title
+       and description
+    #. User selects the relevant behaviour
+        * Behaviour is allowed immediately
+        * If the behaviour applies new fields, these become available as field
+          tiles
+
+Components:
+
+    * Helpers in ``plone.behavior`` (see ``plone.app.dexterity`` for examples)
+
+**TODO:** Need to create per-item behaviour adapter; store list of behaviours
+in an attribute (list of strings - no direct interface references)
+
+As a content author, I can insert fields provided by a behaviour as field tiles
+-------------------------------------------------------------------------------
+
+No special flow, but need to make sure we can deal with behaviours being added
+or removed during an editing session
+
+As an administrator, I can download layouts and categories to an archive
+------------------------------------------------------------------------
+
+Flow:
+
+    #. Administrator goes to layouts control panel
+    #. Administrator chooses one or more layouts
+    #. Administrator clicks "export" and is given a zip file to download
+
+Components:
+
+    * ``plone.resource`` resource directories' ``exportZip()`` method
+    * See ``plone.app.theming`` for example code
+    
+**TODO:** Is a resource directory the correct abstraction here? This implies
+we are working on a set of related layouts. Perhaps we need the UI to reflect
+this so layouts are always created in (and can be moved between) resource
+directories, which are the units of export/import.
+
+As a site administrator, I can deploy layouts and categories from an archive, without needing filesystem access
+---------------------------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. Administrator goes to layouts control panel
+    #. Administrator chooses to import layouts form a zip file
+    #. Administrator chooses a file and clicks upload
+    #. New layouts are made available
+
+Components:
+
+    * ``plone.resource`` resource directories' ``importZip()`` method
+    * See ``plone.app.theming`` for example code
+
+**TODO:** Define manifest format
+
+As a site administrator, I can deploy layouts and categories from an archive as part of an automated build process
+------------------------------------------------------------------------------------------------------------------
+
+Flow:
+
+    #. Administrator places an unpackaged equivalent of the resource archive
+       in the global resource directory on the filesystem
+    #. Resources are available after a server restart
+
+Components:
+
+    * ``plone.resource`` resource directories
+
+**TODO:** Do we need to read and install manifest files for resources?
+
+As an administrator, I can apply a Diazo theme and still allow content editors to use Deco layouting in specific regions
+------------------------------------------------------------------------------------------------------------------------
+
+No special flow, but this has implications over how we package up the JS
+and CSS that enables Deco.
+
+As a content author, I can translate a page
+-------------------------------------------
+
+**TODO**
+
+Design decisions
+================
+
+Where do we store site layouts?
+-------------------------------
+
+Site layouts are stored in resource directories of type ``sitelayout``. The
+default site layout that ships with ``plone.app.deco`` is
+``++sitelayout++default/site.html``.
+
+The ``sitelayout`` traverser is registered in ``plone.app.page``.
+
+Each enabled site layout is stored in the ``plone.registry`` registry with
+metadata such as title, description and applicable categories.
+
+**TODO:** Define format for storing this information in the registry.
+
+Where do we store saved template page layouts?
+----------------------------------------------
+
+Template page layouts are used as the default value for the ``content`` field
+in the ``ILayout`` behaviour - in other words, they are the default content
+in the Deco editor.
+
+Template page layouts are stored in resource directories of type
+``pagelayout``. The default template page layout ships with ``plone.app.deco``
+as ``++pagelayout++default/page.html``.
+
+The ``pagelayout`` traverser is registered in ``plone.app.page``.
+
+Each enabled site layout is stored in the ``plone.registry`` registry with
+metadata such as title, description and applicable categories.
+
+**TODO:** Define format for storing this information in the registry.
+
+Where do we store categories?
+-----------------------------
+
+Categories are stored as FTIs in ``portal_types``, using the ``IPageFTI``
+interface. This is an extension of ``IDexterityFTI``, which is more
+opinionated and stores a few more options: 
+
+``default_site_layout``
+    The default site layout to use when creating pages in this category.
+    Note that this can be overridden on a per-section basis through the
+    ``sectionLayout`` property of the ``ILayout`` behaviour, which controls
+    the default site layout for pages in a given section.
+
+``default_page_layout_template``
+    The default page template layout for pages in this category.
+
+The ``PageFTI`` type and related helper methods for managing categories are
+found in the ``plone.app.page`` package.
+
+How do we export/import site layouts, template page layouts, and categories
+---------------------------------------------------------------------------
+
+Site layouts
+    Use ``plone.resource`` to package and deploy resources. Metadata is
+    managed in the registry (``registry.xml``).
+Template page layouts
+    Use ``plone.resource`` to package and deploy resources. Metadata is
+    managed in the registry (``registry.xml``).
+Categories
+    Use GenericSetup (``types.xml``)
+
+**TODO:** Do we need a combined import/export format (resource archive plus
+metadata)? We could put the registry information in a manifest file and parse
+this on import.
+
+How do we manage per-category behaviours?
+-----------------------------------------
+
+Since categories are just instantiations of a Dexterity FTI, this is managed
+on the FTI as normal.
+
+How do we manage per-page behaviours?
+-------------------------------------
+
+Per-page behaviours can be enabled through a custom ``IBehaviorAssignable``
+adapter. Per-page and per-category behaviours should be additive.
+
+**TODO:** Add support for per-page behaviours.
+
+How do we allow users to "take over" panels (or tiles?) from the site layout
+----------------------------------------------------------------------------
+
+By default, the site layout contains a panel ``content``, which is filled by
+the default page layout.
+
+The user can switch site layouts to obtain a bigger ``content`` panel, e.g.
+to take over left/right hand side.
+
+Other panels may be included, in which case Deco may allow the user
+to replace them in the page layout. This starts with copying the site layout
+tiles into the page layout, before making them editable. (Before taking over a
+panel, the site layout's tiles will be shown in the editor, but not editable.)
+
+Each panel lives inside a Deco Grid cell. Each panel then contains a nested
+grid of its own. There is only one such level of nesting.
+
+The site layout may contain other tiles inside other grid cells that are not
+marked as panels. These are never editable.
+
+Where do we store binary data (images, files) for tiles
+-------------------------------------------------------
+
+For now, we will only allow transient tiles to be added to the site layout.
+The out-of-the-box tiles should all be transient.
+
+Note that tiles may reference binary data, either in the ZODB or in a
+resource directory.
+
+**TODO:** Ensure this works with files in ``plone.resource`` directory.
+
+Persistent tiles may be added to pages. Their data will be stored in
+annotations.
+
+How do we control 'can edit layout' permissions? 
+------------------------------------------------
+
+This is enforced in Deco by observing a permission. It is enforced at the UI
+level only, i.e. not on the server side.
+
+**TODO:** Define permission.
+
+How do tiles interact with translations?
+----------------------------------------
+
+**TODO**

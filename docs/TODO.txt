@@ -1,0 +1,33 @@
+plone.app.page
+--------------
+
+ [ ] Create simplified add form
+ [ ] Register ``sitelayout`` and ``pagelayout`` traversers
+ [ ] Add list of available template page layouts to the category FTI
+ [ ] Define a registry structure for site layouts and template page layouts
+ [ ] Define a manifest format for layout title, description etc
+ [ ] Define an import mechanism for this manifest
+    [ ] Filesystem resource directories
+    [ ] Resource directories in distributions
+    [ ] Resources created TTW
+ [ ] Helpers to create new template page layouts from a content item
+ [ ] Helpers to change category of a content item
+ [ ] Create per-item behaviour adapter
+
+ [ ] Tests for
+    [ ] getDefaultPageLayout()
+    [ ] getDefaultSiteLayout()
+    [ ] getPageTypes()
+    [ ] clonePageType()
+    [ ] getDefaultPageContent()
+    [ ] Resource traversers
+
+plone.app.tiles
+---------------
+
+  [] Create "null add form" view
+
+plone.app.deco
+--------------
+
+ [ ] Define "can edit layout" permission
