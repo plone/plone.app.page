@@ -1,18 +1,40 @@
+Immediate bugs
+--------------
+
+ [ ] Blocks traversal (plone.subrequest) seems to lose the security context,
+     so that we get "You are not authorized to view this resource" errors from
+     ZPublisher (!) when trying to resolve layouts or tiles on an object that
+     is not visible to anonymous.
+
+ [ ] An XML syntax error in the page layout (?) kills Blocks processing
+
 plone.app.page
 --------------
 
- [ ] Create simplified add form
- [ ] Register ``sitelayout`` and ``pagelayout`` traversers
- [ ] Add list of available template page layouts to the category FTI
+ [ ] Create simplified add form for pages
+    - Should ask for title and let user choose a layout template
+ [ ] Add vocabulary of available template page layouts
+ [ ] Add vocabulary of available site layouts to the PageFTI
+ [x] Register ``sitelayout`` and ``pagelayout`` traversers
  [ ] Define a registry structure for site layouts and template page layouts
- [ ] Define a manifest format for layout title, description etc
+    - Title
+    - Description
+    - Optional thumbnail?
+ [ ] Define a manifest format for layout metadata
  [ ] Define an import mechanism for this manifest
     [ ] Filesystem resource directories
     [ ] Resource directories in distributions
     [ ] Resources created TTW
- [ ] Helpers to create new template page layouts from a content item
- [ ] Helpers to change category of a content item
+ [ ] Create helper to create new template page layouts from a content item
+ [ ] Create helpers to change category of a content item
+    - This means changing the portal_type to a different PageFTI instance
  [ ] Create per-item behaviour adapter
+ [ ] Add mechanism for setting and changing category layout
+    - Does Deco just do this in the source?
+    - Or do we use a page template to render that part of the page view?
+ [ ] Similarly, add mechanism to vary the default site layout
+    - This also affects things like the folder_contents and @@sharing in the
+      various branches
 
  [ ] Tests for
     [ ] getDefaultPageLayout()
@@ -22,12 +44,44 @@ plone.app.page
     [ ] getDefaultPageContent()
     [ ] Resource traversers
 
+plone.app.blocks
+----------------
+
+ [ ] The DOCTYPE is lost after applying the XSLT in tile page rendering mode
+ [ ] Create pure XSLT version
+
 plone.app.tiles
 ---------------
 
-  [] Create "null add form" view
+ [ ] Create "null add form" view for tiles with no configuration
+ [ ] Fix test failures
+ [ ] Fix test errors when run in aggregate with other tests
+ 
+plone.app.standardtiles
+-----------------------
+
+ [ ] Split tests up - it's impossible to debug one giant doctest
+ [ ] Fix test failures under Plone 4.1
 
 plone.app.deco
 --------------
 
  [ ] Define "can edit layout" permission
+ [ ] Fix test failure when run in aggregate with other tests
+
+plone.app.controlpanel
+----------------------
+
+ [ ] Fix test failures
+
+plone.app.content
+-----------------
+
+ [ ] Fix test failures
+
+plone.app.workflow
+------------------
+
+ [ ] Fix test failures
+ 
+

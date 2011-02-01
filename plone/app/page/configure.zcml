@@ -4,10 +4,14 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="plone">
 
     <include package="plone.behavior" file="meta.zcml" />
     <include package="plone.app.dexterity" />
+    
+    <include package="plone.resource" />
+    <include package="plone.subrequest" />
     
     <!-- Grok the package to initialise schema interfaces and content classes -->
     <grok:grok package="." />
@@ -16,6 +20,25 @@
     <browser:resourceDirectory
         name="plone.app.page.images"
         directory="images"
+        />
+    
+    <!-- Register FTI class and add view -->
+    
+    <browser:page
+        for="zope.app.container.interfaces.IAdding"
+        name="plone.app.page.fti"
+        template="templates/fti.pt"
+        class=".fti.FTIAddView"
+        permission="cmf.ManagePortal"
+        />
+    
+    <five:registerClass
+        class=".fti.PageFTI"
+        meta_type="Page FTI"
+        addview="plone.app.page.fti"
+        permission="cmf.ManagePortal"
+        icon="plone.app.page.images/page_icon.gif"
+        global="False"
         />
     
     <!-- Register an extension profile to make the product installable -->
@@ -33,5 +56,20 @@
         description="Adds layout support to your content type"
         provides=".behavior.ILayout"
         />
-
+    
+    <!-- Register the resource traversers -->
+    <adapter
+        name="sitelayout"
+        for="* zope.publisher.interfaces.IRequest"
+        provides="zope.traversing.interfaces.ITraversable"
+        factory=".resource.SiteLayoutTraverser"
+        />
+    
+    <adapter
+        name="pagelayout"
+        for="* zope.publisher.interfaces.IRequest"
+        provides="zope.traversing.interfaces.ITraversable"
+        factory=".resource.PageLayoutTraverser"
+        />
+    
 </configure>

@@ -451,3 +451,22 @@ How do tiles interact with translations?
 ----------------------------------------
 
 **TODO**
+
+Packages
+========
+
+The following packages participate in the Deco/Blocks layout engine:
+
+``plone.app.blocks``
+    Implements the Blocks rendering algorithm as a ``plone.transformchain``
+    post-processing step.
+``plone.app.page``
+    Defines a page content type using Dexterity, the ``PageFTI`` and the
+    ``ILayout`` behaviour. Also defines the page and site layout traversers.
+``plone.tiles`` and ``plone.app.tiles``
+    Defines the API for creating tiles.
+``plone.app.standardtiles``
+    Contains standard Plone tiles.
+``plone.app.deco``
+    Depends on all of the above, configuring them in the site. Also contains
+    the Deco editor GUI.
