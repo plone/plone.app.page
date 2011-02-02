@@ -7,14 +7,15 @@ from plone.behavior.interfaces import IBehavior
 
 from zope.lifecycleevent import modified
 
-from plone.app.page import testing
+from plone.app.page.tests._testing import DECO_PAGE_INTEGRATION_TESTING
+
 
 OPTIONFLAGS = doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE
 
 
 class IntegrationTests(unittest.TestCase):
 
-    layer = testing.DECO_PAGE_INTEGRATION_TESTING
+    layer = DECO_PAGE_INTEGRATION_TESTING
 
     def test_adding(self):
 
@@ -46,7 +47,7 @@ class IntegrationTests(unittest.TestCase):
         behavior = getUtility(IBehavior, name=u"plone.app.page.behavior.ILayout")
         self.assertEqual(behavior.title, u'Layout support')
         self.assertEqual(behavior.interface, ILayout)
-        self.assertEqual(behavior.marker, ILayout) 
+        self.assertEqual(behavior.marker, ILayout)
 
 
 def test_suite():
