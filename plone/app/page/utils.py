@@ -86,7 +86,7 @@ def resolveResource(url):
     """
 
     response = subrequest(url)
-    resolved = response.body or response.stdout.getvalue()
+    resolved = response.getBody()
     
     if isinstance(resolved, str):
         charset = extractCharset(response)

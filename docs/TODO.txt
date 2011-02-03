@@ -1,13 +1,3 @@
-Immediate bugs
---------------
-
- [ ] Blocks traversal (plone.subrequest) seems to lose the security context,
-     so that we get "You are not authorized to view this resource" errors from
-     ZPublisher (!) when trying to resolve layouts or tiles on an object that
-     is not visible to anonymous.
-
- [ ] An XML syntax error in the page layout (?) kills Blocks processing
-
 plone.app.page
 --------------
 
