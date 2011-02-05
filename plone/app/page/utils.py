@@ -69,6 +69,15 @@ def clonePageType(portal_types, name, newName, title, description, **kwargs):
     newFTI.manage_changeProperties(**kwargs)
     portal_types._setObject(newFTI.id, newFTI)
 
+def changePageType(context, new_type, reindex=True):
+    """Change the portal type (cateogry) of a page object
+    """
+    
+    context.portal_type = new_type
+    
+    if reindex:
+        context.reindexObject()
+
 def extractCharset(response, default='utf-8'):
     """Get the charset of the given response
     """

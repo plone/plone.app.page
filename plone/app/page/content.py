@@ -7,13 +7,8 @@ from zope.interface import implements
 from plone.directives import form, dexterity
 from zope import schema
 
-from zope.lifecycleevent.interfaces import IObjectAddedEvent
-
 from plone.app.page.interfaces import IPageForm
 from plone.app.page.behavior import ILayout
-
-from plone.app.page.utils import getDefaultPageLayout
-from plone.app.page.utils import resolveResource
 
 from plone.app.page import PloneMessageFactory as _
 
@@ -63,24 +58,6 @@ class AddForm(dexterity.AddForm):
     
     schema = IAddForm
     additionalSchemata = ()
-
-@grok.subscribe(IPage, IObjectAddedEvent)
-def setDefaultLayoutForNewPage(obj, event):
-    """When a new page is created, set its layout based on the default in
-    the FTI
-    """
-    layoutAware = ILayout(obj, None)
-    if layoutAware is None:
-        return
-    
-    portal_type = obj.portal_type
-    template = getDefaultPageLayout(portal_type)
-    
-    if template is None:
-        raise ValueError("Cannot find layout template for %s" % portal_type)
-    
-    templatePath = obj.absolute_url_path() + template
-    layoutAware.content = resolveResource(templatePath)
 
 class View(grok.View):
     grok.context(IPage)

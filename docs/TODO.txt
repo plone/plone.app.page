@@ -4,8 +4,6 @@ plone.app.page
  [x] Create simplified add form for pages
 
  [x] Register ``sitelayout`` and ``pagelayout`` traversers
- [ ] Add vocabulary of available template page layouts
- [ ] Add vocabulary of available site layouts to the PageFTI
 
  [ ] Define a registry structure for site layouts and template page layouts
     - Title
@@ -16,6 +14,9 @@ plone.app.page
     [ ] Filesystem resource directories
     [ ] Resource directories in distributions
     [ ] Resources created TTW
+
+ [ ] Add vocabulary of available template page layouts
+ [ ] Add vocabulary of available site layouts to the PageFTI
 
  [ ] Create helper to create new template page layouts from a content item
  [ ] Create helpers to change category of a content item
@@ -38,6 +39,7 @@ plone.app.page
     [ ] getPageTypes()
     [ ] clonePageType()
     [ ] getDefaultPageContent()
+    [ ] changePageType()
     [ ] Resource traversers
 
 plone.app.blocks
