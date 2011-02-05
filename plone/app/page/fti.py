@@ -13,6 +13,20 @@ from Products.CMFCore.browser.typeinfo import FactoryTypeInformationAddView
 
 class PageFTI(DexterityFTI):
     """Factory type information for the Page type.
+    
+    There are some important policies encoded here:
+    
+        - The add view is always string:${folder_url}/++add++page, which
+          means we use the standard (simplified) Page add form, even for
+          clones of this FTI (different categories)
+        - The immediate view is ``edit`` - this is where we go immediately
+          after creation.
+        - Behaviours default to a standard Plone set. Removing IDublinCore
+          or ILayout is likely to be problematic.
+        - We keep track of the default site layout for instances of this type
+        - We keep track of the default page layout template for instances of
+          this type
+    
     """
     
     implements(IPageFTI)

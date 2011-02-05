@@ -31,6 +31,9 @@ class IPageFTI(IDexterityFTI):
 
 class IPageForm(Interface):
     """Marker interface for forms to be wrapped in a Deco interface.
+    
+    A special form layout template is defined for this marker interface, which
+    references the site layout and invokes Block editing.
     """
 
 class IOmittedField(Interface):

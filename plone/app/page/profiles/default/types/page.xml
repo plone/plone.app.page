@@ -14,13 +14,9 @@
   <property name="filter_content_types">False</property>
   <property name="allowed_content_types"/>
 
-  <property name="klass">plone.dexterity.content.Container</property>
   <property name="add_permission">cmf.AddPortalContent</property>
 
-  <!-- Schema - here described inline for TTW editing -->
   <property name="schema">plone.app.page.content.IPage</property>
-  <property name="model_source"></property>
-  <property name="model_file"></property>
 
   <!-- List of enabled behaviors -->
   <property name="behaviors">

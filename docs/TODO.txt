@@ -1,11 +1,12 @@
 plone.app.page
 --------------
 
- [ ] Create simplified add form for pages
-    - Should ask for title and let user choose a layout template
+ [x] Create simplified add form for pages
+
+ [x] Register ``sitelayout`` and ``pagelayout`` traversers
  [ ] Add vocabulary of available template page layouts
  [ ] Add vocabulary of available site layouts to the PageFTI
- [x] Register ``sitelayout`` and ``pagelayout`` traversers
+
  [ ] Define a registry structure for site layouts and template page layouts
     - Title
     - Description
@@ -15,16 +16,21 @@ plone.app.page
     [ ] Filesystem resource directories
     [ ] Resource directories in distributions
     [ ] Resources created TTW
+
  [ ] Create helper to create new template page layouts from a content item
  [ ] Create helpers to change category of a content item
     - This means changing the portal_type to a different PageFTI instance
+
  [ ] Create per-item behaviour adapter
- [ ] Add mechanism for setting and changing category layout
-    - Does Deco just do this in the source?
-    - Or do we use a page template to render that part of the page view?
- [ ] Similarly, add mechanism to vary the default site layout
-    - This also affects things like the folder_contents and @@sharing in the
-      various branches
+
+ [ ] Add mechanism for setting and changing site layout in a section
+    - Default is stored in FTI
+    - Section override is stored in ILayout
+    - Need this to be dynamic (need some indirection)
+        - Render view with simple page template?
+        - Change blocks to look somewhere other than the title?
+        - Add transform step to override site layout?
+    - Also applies to views created with page templates (e.g. folder_contents)
 
  [ ] Tests for
     [ ] getDefaultPageLayout()
