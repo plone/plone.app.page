@@ -14,23 +14,23 @@ plone.app.page
         - calculates appropriate site layout using getDefaultSiteLayout()
         - caches per context
 
- [ ] Invalidate cache key in sitelayout.py if global default site layout 
+ [x] Invalidate cache key in sitelayout.py if global default site layout 
      registry record is changed. Can use RecordModifiedEvent, but need a
      counter or similar.
 
- [ ] Define a registry structure for site layouts and page layout templates
-    - Title
-    - Description
-    - Optional thumbnail?
- [ ] Define a manifest format for layout metadata
- [ ] Define an import mechanism for this manifest
-    [ ] Filesystem resource directories
-    [ ] Resource directories in distributions
-    [ ] Resources created TTW
+ [ ] Define a manifest format for site and page layout resource directories
+    - Two options:
+        - One resource directory per site/page layout and a single
+          manifest.cfg file.
+        - Each resource directory can contain multiple layout HTML files,
+          enumerated in its manifest.cfg file. Metadata is extracted from the
+          HTML file (e.g. in meta tags).
+    - Add helpers to enumerate and find this information
 
  [ ] Add vocabulary of available page layout templates
  [ ] Add vocabulary of available site layouts
- [ ] Apply to ILayout
+ [ ] Use vocabularies in ILayout
+ [ ] Use vocabularies in FTI
 
  [ ] Create helper to create new template page layouts from a content item
  [ ] Create helpers to change category of a content item
@@ -48,7 +48,7 @@ plone.app.page
     [ ] changePageType()
     [ ] Resource traversers
     [ ] Layout indirection views
-    [ ] Layout indirection view cache key
+    [ ] Layout indirection view cache key + storage
 
 plone.app.blocks
 ----------------

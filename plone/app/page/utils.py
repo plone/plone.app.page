@@ -4,7 +4,7 @@ from plone.subrequest import subrequest
 from plone.registry.interfaces import IRegistry
 from plone.dexterity.interfaces import IDexterityFTI
 
-from plone.app.page.behavior import ILayout
+from plone.app.page.layoutbehavior import ILayout
 from plone.app.page.interfaces import IPageFTI
 
 from Acquisition import aq_inner

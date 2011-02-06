@@ -15,7 +15,7 @@
     
     <!-- Grok the Dexterity type and behaviour (only) -->
     <grok:grok package=".content" />
-    <grok:grok package=".behavior" />
+    <grok:grok package=".layoutbehavior" />
     
     <!-- Register resource directory for images -->
     <browser:resourceDirectory
@@ -54,13 +54,11 @@
     <plone:behavior
         title="Layout support"
         description="Adds layout support to your content type"
-        provides=".behavior.ILayout"
+        provides=".layoutbehavior.ILayout"
         />
     
     <subscriber
-        for=".behavior.ILayout
-             zope.lifecycleevent.interfaces.IObjectAddedEvent"
-        handler=".behavior.setDefaultLayoutForNewPage"
+        handler=".layoutbehavior.setDefaultLayoutForNewPage"
         />
     
     <!-- Register the resource traversers -->
@@ -81,7 +79,7 @@
     <!-- Register indirection views for looking up the layout -->
     <browser:view
         name="page-site-layout"
-        for=".behavior.ILayout"
+        for=".layoutbehavior.ILayout"
         permission="zope.Public"
         class=".sitelayout.PageSiteLayout"
         />
@@ -91,6 +89,11 @@
         for="*"
         permission="zope.Public"
         class=".sitelayout.DefaultSiteLayout"
+        />
+    
+    <!-- Cache invalidation when global site layout changes -->
+    <subscriber
+        handler=".sitelayout.globalSiteLayoutModified"
         />
     
 </configure>

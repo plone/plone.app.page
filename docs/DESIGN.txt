@@ -133,8 +133,10 @@ Flow:
         * Panels that exist only in the new template are filled with the
           (placeholder) tiles from the layout template 
 
-**TODO:** Do we need to keep a list of available template page layout in the
-category FTI?
+**TODO**: Define helper to enumerate all page layouts using
+``plone.resource.manifest``
+
+**TODO**: Define mechanism to constrain this list in the page FTI
 
 As a content author, I can save a copy of a page as a template page layout
 --------------------------------------------------------------------------
@@ -149,7 +151,8 @@ Flow:
     #. The template page layout is saved and now available on other content
        items
 
-**TODO:** Do we need to manage template page layouts by category?
+**TODO:** Define helpers to create a new page layout in an in-ZDOB
+``pagelayout`` resource directory and enumerate on the FTI
 
 As a content author, I can change the site layout applied to my page
 --------------------------------------------------------------------
@@ -165,7 +168,10 @@ Flow:
         * Panels that exist only in the new template are filled with the
           (placeholder) tiles from the layout template 
 
-**TODO:** Define metadata/enumeration of site layouts
+**TODO:** Define helpers to enumerate site layouts defined in ``sitelayout``
+resource directories.
+
+**TODO:** Define mechanism for restricting site layouts in the page FTI
 
 As a content author, I can change the site layout applied to the section underneath my page
 -------------------------------------------------------------------------------------------
@@ -179,9 +185,9 @@ Flow:
 Components:
 
     * ``sectionLayout`` attribute of ``ILayout`` behaviour
-    * ``getDefaultSiteLayout()`` in ``plone.app.page.utils``
+    * ``getPageSiteLayout()`` in ``plone.app.page.utils``
 
-**TODO:** Define metadata/enumeration of site layouts
+**TODO:** Define helper to enumerate available site layouts
 
 As an administrator, I can edit the site layout and insert tiles
 ----------------------------------------------------------------
@@ -196,6 +202,7 @@ Flow:
 Components:
 
     * ``plone.resource`` type for ``sitelayout``
+    * In-ZODB sitelayout resource directory
 
 As an administrator, I can designate panels in the site layout usually occupied by content
 ------------------------------------------------------------------------------------------
@@ -308,8 +315,6 @@ Components:
 
     * ``plone.resource`` resource directories
 
-**TODO:** Do we need to read and install manifest files for resources?
-
 As an administrator, I can apply a Diazo theme and still allow content editors to use Deco layouting in specific regions
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -333,10 +338,22 @@ default site layout that ships with ``plone.app.deco`` is
 
 The ``sitelayout`` traverser is registered in ``plone.app.page``.
 
-Each enabled site layout is stored in the ``plone.registry`` registry with
-metadata such as title, description and applicable categories.
+By convention, the site layout is in a file ``site.html``. Metadata can be
+supplied in an optional ``manifest.cfg`` inside the site layout directory,
+which should have this format::
 
-**TODO:** Define format for storing this information in the registry.
+    [sitelayout]
+    title = A short title
+    description = A slightly longer description
+    file = site.html
+
+All keys are optional. The ``file`` parameter gives the name of a file inside
+this resource directory.
+
+Like a Diazo theme deployed with plone.app.theming, the site layout may
+reference images, stylesheets etc with relative links. These will be rewritten
+as absolute paths, on the assumption that they are contained within the
+resource directory.
 
 How do we reference site layouts from pages and templates?
 ----------------------------------------------------------
@@ -369,15 +386,27 @@ in the ``ILayout`` behaviour - in other words, they are the default content
 in the Deco editor.
 
 Template page layouts are stored in resource directories of type
-``pagelayout``. The default template page layout ships with ``plone.app.deco``
-as ``++pagelayout++default/page.html``.
+``pagelayout``. The default template page layout that ships with
+``plone.app.deco`` is ``++pagelayout++default/page.html``.
 
 The ``pagelayout`` traverser is registered in ``plone.app.page``.
 
-Each enabled site layout is stored in the ``plone.registry`` registry with
-metadata such as title, description and applicable categories.
+By convention, the site layout is in a file ``page.html``. Metadata can be
+supplied in an optional ``manifest.cfg`` inside the site layout directory,
+which should have this format::
 
-**TODO:** Define format for storing this information in the registry.
+    [pagelayout]
+    title = A short title
+    description = A slightly longer description
+    file = site.html
+
+All keys are optional. The ``file`` parameter gives the name of a file inside
+this resource directory.
+
+Like a Diazo theme deployed with plone.app.theming, a page layout may
+reference images, stylesheets etc with relative links. These will be rewritten
+as absolute paths, on the assumption that they are contained within the
+resource directory.
 
 Where do we store categories?
 -----------------------------
@@ -402,17 +431,11 @@ How do we export/import site layouts, template page layouts, and categories
 ---------------------------------------------------------------------------
 
 Site layouts
-    Use ``plone.resource`` to package and deploy resources. Metadata is
-    managed in the registry (``registry.xml``).
+    Use ``plone.resource`` to package and deploy resources and manifest files.
 Template page layouts
-    Use ``plone.resource`` to package and deploy resources. Metadata is
-    managed in the registry (``registry.xml``).
+    Use ``plone.resource`` to package and deploy resources and manifest files.
 Categories
-    Use GenericSetup (``types.xml``)
-
-**TODO:** Do we need a combined import/export format (resource archive plus
-metadata)? We could put the registry information in a manifest file and parse
-this on import.
+    Use GenericSetup (``types.xml`` and relates XML files)
 
 How do we manage per-category behaviours?
 -----------------------------------------

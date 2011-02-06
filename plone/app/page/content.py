@@ -8,7 +8,7 @@ from plone.directives import form, dexterity
 from zope import schema
 
 from plone.app.page.interfaces import IPageForm
-from plone.app.page.behavior import ILayout
+from plone.app.page.layoutbehavior import ILayout
 
 from plone.app.page import PloneMessageFactory as _
 

@@ -1,9 +1,12 @@
 import urlparse
 
 from zope.interface import implements, alsoProvides
+from zope.component import adapter
 
 from plone.directives import form
 from zope import schema
+
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
 from plone.app.page.interfaces import IOmittedField
 from plone.app.page.interfaces import ILayoutField
@@ -46,6 +49,7 @@ alsoProvides(ILayout['content'], IOmittedField)
 alsoProvides(ILayout['pageSiteLayout'], IOmittedField)
 alsoProvides(ILayout['sectionLayout'], IOmittedField)
 
+@adapter(ILayout, IObjectModifiedEvent)
 def setDefaultLayoutForNewPage(obj, event):
     """When a new page is created, set its layout based on the default in
     the FTI

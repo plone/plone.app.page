@@ -42,9 +42,9 @@ class IntegrationTests(unittest.TestCase):
         self.assertEquals(1, len(results))
 
     def test_behavior_registered(self):
-        from plone.app.page.behavior import ILayout
+        from plone.app.page.layoutbehavior import ILayout
 
-        behavior = getUtility(IBehavior, name=u"plone.app.page.behavior.ILayout")
+        behavior = getUtility(IBehavior, name=u"plone.app.page.layoutbehavior.ILayout")
         self.assertEqual(behavior.title, u'Layout support')
         self.assertEqual(behavior.interface, ILayout)
         self.assertEqual(behavior.marker, ILayout)

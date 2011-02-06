@@ -7,7 +7,7 @@ from plone.app.dexterity.behaviors.metadata import IDublinCore
 
 from plone.app.page.interfaces import IPageFTI
 from plone.app.page.content import IPage
-from plone.app.page.behavior import ILayout
+from plone.app.page.layoutbehavior import ILayout
 
 from Products.CMFCore.browser.typeinfo import FactoryTypeInformationAddView
 
