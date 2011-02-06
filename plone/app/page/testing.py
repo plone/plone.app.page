@@ -4,8 +4,7 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import FunctionalTesting
 from plone.app import testing
 
-
-class DecoPageLayer(PloneSandboxLayer):
+class PageLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
 
@@ -27,8 +26,6 @@ class DecoPageLayer(PloneSandboxLayer):
             portal, testing.TEST_USER_ID, ['Member'])
 
 
-DECO_PAGE_FIXTURE = DecoPageLayer()
-DECO_PAGE_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(DECO_PAGE_FIXTURE,), name="DecoPage:Integration")
-DECO_PAGE_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(DECO_PAGE_FIXTURE,), name="DecoPage:Functional")
+PAGE_FIXTURE = PageLayer()
+PAGE_INTEGRATION_TESTING = IntegrationTesting(bases=(PAGE_FIXTURE,), name="Page:Integration")
+PAGE_FUNCTIONAL_TESTING = FunctionalTesting(bases=(PAGE_FIXTURE,), name="Page:Functional")

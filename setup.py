@@ -30,6 +30,7 @@ setup(name='plone.app.page',
           'five.grok',
           'plone.subrequest',
           'plone.resource',
+          'plone.memoize',
           'plone.directives.form',
           'plone.app.dexterity',
           'Products.CMFCore',
@@ -37,8 +38,4 @@ setup(name='plone.app.page',
       extras_require = {
           'test': ['plone.app.testing', ],
       },
-      entry_points="""
-      [z3c.autoinclude.plugin]
-      target = plone
-      """,
       )

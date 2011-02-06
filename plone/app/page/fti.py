@@ -55,7 +55,7 @@ class PageFTI(DexterityFTI):
     
     model_source = ""
     
-    default_site_layout = "/++sitelayout++default/site.html"
+    default_site_layout = None # use global default
     default_page_layout_template = "/++pagelayout++default/page.html"
     
     def __init__(self, *args, **kwargs):

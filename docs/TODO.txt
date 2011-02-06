@@ -2,10 +2,23 @@ plone.app.page
 --------------
 
  [x] Create simplified add form for pages
-
  [x] Register ``sitelayout`` and ``pagelayout`` traversers
 
- [ ] Define a registry structure for site layouts and template page layouts
+ [x] Improve management of site layout
+    - Create a view @@page-site-layout
+        - available on all ILayout
+        - calculates appropriate site layout using getPageSiteLayout()
+        - caches per context
+    - Create a view @@default-site-layout
+        - available on *
+        - calculates appropriate site layout using getDefaultSiteLayout()
+        - caches per context
+
+ [ ] Invalidate cache key in sitelayout.py if global default site layout 
+     registry record is changed. Can use RecordModifiedEvent, but need a
+     counter or similar.
+
+ [ ] Define a registry structure for site layouts and page layout templates
     - Title
     - Description
     - Optional thumbnail?
@@ -15,8 +28,9 @@ plone.app.page
     [ ] Resource directories in distributions
     [ ] Resources created TTW
 
- [ ] Add vocabulary of available template page layouts
- [ ] Add vocabulary of available site layouts to the PageFTI
+ [ ] Add vocabulary of available page layout templates
+ [ ] Add vocabulary of available site layouts
+ [ ] Apply to ILayout
 
  [ ] Create helper to create new template page layouts from a content item
  [ ] Create helpers to change category of a content item
@@ -24,23 +38,17 @@ plone.app.page
 
  [ ] Create per-item behaviour adapter
 
- [ ] Add mechanism for setting and changing site layout in a section
-    - Default is stored in FTI
-    - Section override is stored in ILayout
-    - Need this to be dynamic (need some indirection)
-        - Render view with simple page template?
-        - Change blocks to look somewhere other than the title?
-        - Add transform step to override site layout?
-    - Also applies to views created with page templates (e.g. folder_contents)
-
  [ ] Tests for
     [ ] getDefaultPageLayout()
     [ ] getDefaultSiteLayout()
+    [ ] getPageSiteLayout()
     [ ] getPageTypes()
     [ ] clonePageType()
     [ ] getDefaultPageContent()
     [ ] changePageType()
     [ ] Resource traversers
+    [ ] Layout indirection views
+    [ ] Layout indirection view cache key
 
 plone.app.blocks
 ----------------

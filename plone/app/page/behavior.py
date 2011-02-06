@@ -1,11 +1,9 @@
-from five import grok
+import urlparse
 
 from zope.interface import implements, alsoProvides
 
 from plone.directives import form
 from zope import schema
-
-from zope.lifecycleevent.interfaces import IObjectAddedEvent
 
 from plone.app.page.interfaces import IOmittedField
 from plone.app.page.interfaces import ILayoutField
@@ -21,7 +19,7 @@ class LayoutField(schema.Text):
 class ILayout(form.Schema):
     """Behavior interface to make a type support layout.
     """
-    form.fieldset('layout', label=_(u"Layout"), fields=['content', 'sectionLayout'])
+    form.fieldset('layout', label=_(u"Layout"), fields=['content', 'pageSiteLayout', 'sectionLayout'])
 
     content = schema.Text(
             title=_(u"Content"),
@@ -29,17 +27,25 @@ class ILayout(form.Schema):
             required=False,
         )
     
-    sectionLayout = schema.ASCIILine(
+    pageSiteLayout = schema.ASCIILine(
             title=_(u"Section layout"),
-            description=_(u"Default layout for pages in this section"),
+            description=_(u"Current site layout"),
             required=False,
         )
     
+    sectionLayout = schema.ASCIILine(
+            title=_(u"Section layout"),
+            description=_(u"Default site layout for pages in this section"),
+            required=False,
+        )
+    
+    
+    
 alsoProvides(ILayout, form.IFormFieldProvider)
 alsoProvides(ILayout['content'], IOmittedField)
+alsoProvides(ILayout['pageSiteLayout'], IOmittedField)
 alsoProvides(ILayout['sectionLayout'], IOmittedField)
 
-@grok.subscribe(ILayout, IObjectAddedEvent)
 def setDefaultLayoutForNewPage(obj, event):
     """When a new page is created, set its layout based on the default in
     the FTI
@@ -59,5 +65,5 @@ def setDefaultLayoutForNewPage(obj, event):
     if template is None:
         raise ValueError("Cannot find layout template for %s" % portal_type)
     
-    templatePath = obj.absolute_url_path() + template
+    templatePath = urlparse.urljoin(obj.absolute_url_path(), template)
     layoutAware.content = resolveResource(templatePath)

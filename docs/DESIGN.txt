@@ -338,6 +338,29 @@ metadata such as title, description and applicable categories.
 
 **TODO:** Define format for storing this information in the registry.
 
+How do we reference site layouts from pages and templates?
+----------------------------------------------------------
+
+A site layout is embedded in a page layout with a link like::
+
+    <link rel="layout" href="./@@page-site-layout" />
+
+or::
+
+    <link rel="layout" href="./@@default-site-layout" />
+
+These two helper views look up the current site layout to use. The former can
+be used for the view of a page, where the site layout may be overridden on
+a per-page basis. The latter is more applicable to a standalone view such as
+a control panel form. The site layout may be stored:
+
+* On a page, in the ``ILayout`` behaviour's ``pageSiteLayout`` property
+* On a parent page/section, in the ``ILayout`` behaviour's ``sectionLayout``
+  property
+* On the page FTI, in the ``default_site_layout``
+* In the registry (the global default) under the key
+  ``plone.defaultSiteLayout``
+
 Where do we store saved template page layouts?
 ----------------------------------------------
 

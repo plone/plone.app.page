@@ -13,17 +13,17 @@
     <include package="plone.resource" />
     <include package="plone.subrequest" />
     
-    <!-- Grok the package to initialise schema interfaces and content classes -->
-    <grok:grok package="." />
+    <!-- Grok the Dexterity type and behaviour (only) -->
+    <grok:grok package=".content" />
+    <grok:grok package=".behavior" />
     
-    <!-- Register the resource directory -->
+    <!-- Register resource directory for images -->
     <browser:resourceDirectory
         name="plone.app.page.images"
         directory="images"
         />
     
     <!-- Register FTI class and add view -->
-    
     <browser:page
         for="zope.app.container.interfaces.IAdding"
         name="plone.app.page.fti"
@@ -57,6 +57,12 @@
         provides=".behavior.ILayout"
         />
     
+    <subscriber
+        for=".behavior.ILayout
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler=".behavior.setDefaultLayoutForNewPage"
+        />
+    
     <!-- Register the resource traversers -->
     <adapter
         name="sitelayout"
@@ -70,6 +76,21 @@
         for="* zope.publisher.interfaces.IRequest"
         provides="zope.traversing.interfaces.ITraversable"
         factory=".resource.PageLayoutTraverser"
+        />
+    
+    <!-- Register indirection views for looking up the layout -->
+    <browser:view
+        name="page-site-layout"
+        for=".behavior.ILayout"
+        permission="zope.Public"
+        class=".sitelayout.PageSiteLayout"
+        />
+    
+    <browser:view
+        name="default-site-layout"
+        for="*"
+        permission="zope.Public"
+        class=".sitelayout.DefaultSiteLayout"
         />
     
 </configure>

@@ -7,7 +7,7 @@ from plone.behavior.interfaces import IBehavior
 
 from zope.lifecycleevent import modified
 
-from plone.app.page.tests._testing import DECO_PAGE_INTEGRATION_TESTING
+from plone.app.page.testing import PAGE_INTEGRATION_TESTING
 
 
 OPTIONFLAGS = doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE
@@ -15,7 +15,7 @@ OPTIONFLAGS = doctest.ELLIPSIS | doctest.NORMALIZE_WHITESPACE
 
 class IntegrationTests(unittest.TestCase):
 
-    layer = DECO_PAGE_INTEGRATION_TESTING
+    layer = PAGE_INTEGRATION_TESTING
 
     def test_adding(self):
 

@@ -1,7 +1,7 @@
 from zope.component import queryUtility
 
 from plone.subrequest import subrequest
-
+from plone.registry.interfaces import IRegistry
 from plone.dexterity.interfaces import IDexterityFTI
 
 from plone.app.page.behavior import ILayout
@@ -20,7 +20,8 @@ def getDefaultPageLayout(portal_type):
     return fti.default_page_layout_template
 
 def getDefaultSiteLayout(context):
-    """Get the site layout to use by default for the given content object
+    """Get the path to the site layout to use by default for the given content
+    object
     """
     
     # Note: the sectionLayout on context is for pages *under* context, not
@@ -30,15 +31,33 @@ def getDefaultSiteLayout(context):
     while parent is not None:
         layout = ILayout(parent, None)
         if layout is not None:
-            if layout.sectionLayout:
+            if getattr(layout, 'sectionLayout', None):
                 return layout.sectionLayout
-        parent = aq_parent(aq_inner(context))
+        parent = aq_parent(aq_inner(parent))
     
-    fti = queryUtility(IPageFTI, name=context.portal_type)
-    if fti is None:
+    fti = queryUtility(IDexterityFTI, name=context.portal_type)
+    if fti is not None and IPageFTI.providedBy(fti):
+        if fti.default_site_layout:
+            return fti.default_site_layout
+    
+    registry = queryUtility(IRegistry)
+    if registry is None:
         return None
     
-    return fti.default_site_layout
+    return registry.get('plone.defaultSiteLayout')
+
+def getPageSiteLayout(context):
+    """Get the path to the site layout for a page. This is generally only
+    appropriate for the view of this page. For a generic template or view, use
+    getDefaultSiteLayout(context) instead. """
+    
+    layoutAware = ILayout(context, None)
+    if layoutAware is not None:
+        if getattr(layoutAware, 'pageSiteLayout', None) is not None:
+            return layoutAware.pageSiteLayout
+    
+    return getDefaultSiteLayout(context)
+    
 
 def getPageTypes(portal_types, container=None):
     """Return a list of Page FTIs from the portal_types tool.
