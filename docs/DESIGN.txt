@@ -184,7 +184,7 @@ Flow:
 
 Components:
 
-    * ``sectionLayout`` attribute of ``ILayout`` behaviour
+    * ``sectionSiteLayout`` attribute of ``ILayout`` behaviour
     * ``getPageSiteLayout()`` in ``plone.app.page.utils``
 
 **TODO:** Define helper to enumerate available site layouts
@@ -372,7 +372,7 @@ a per-page basis. The latter is more applicable to a standalone view such as
 a control panel form. The site layout may be stored:
 
 * On a page, in the ``ILayout`` behaviour's ``pageSiteLayout`` property
-* On a parent page/section, in the ``ILayout`` behaviour's ``sectionLayout``
+* On a parent page/section, in the ``ILayout`` behaviour's ``sectionSiteLayout``
   property
 * On the page FTI, in the ``default_site_layout``
 * In the registry (the global default) under the key
@@ -418,7 +418,7 @@ opinionated and stores a few more options:
 ``default_site_layout``
     The default site layout to use when creating pages in this category.
     Note that this can be overridden on a per-section basis through the
-    ``sectionLayout`` property of the ``ILayout`` behaviour, which controls
+    ``sectionSiteLayout`` property of the ``ILayout`` behaviour, which controls
     the default site layout for pages in a given section.
 
 ``default_page_layout_template``

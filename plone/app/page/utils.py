@@ -24,15 +24,15 @@ def getDefaultSiteLayout(context):
     object
     """
     
-    # Note: the sectionLayout on context is for pages *under* context, not
+    # Note: the sectionSiteLayout on context is for pages *under* context, not
     # necessarily context itself
 
     parent = aq_parent(aq_inner(context))
     while parent is not None:
         layout = ILayout(parent, None)
         if layout is not None:
-            if getattr(layout, 'sectionLayout', None):
-                return layout.sectionLayout
+            if getattr(layout, 'sectionSiteLayout', None):
+                return layout.sectionSiteLayout
         parent = aq_parent(aq_inner(parent))
     
     fti = queryUtility(IDexterityFTI, name=context.portal_type)

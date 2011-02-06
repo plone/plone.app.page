@@ -84,3 +84,4 @@ class DefaultSiteLayout(BrowserView):
         layout = getDefaultSiteLayout(self.context)
         path = urlparse.urljoin(self.context.absolute_url_path(), layout)
         return resolveResource(path)
+

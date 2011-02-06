@@ -2,11 +2,24 @@ from zope.interface import Interface
 from zope import schema
 
 from plone.dexterity.interfaces import IDexterityFTI
+from plone.resource.manifest import ManifestFormat
 
 from plone.app.page import PloneMessageFactory as _
 
 SITE_LAYOUT_RESOURCE_NAME = "sitelayout"
+SITE_LAYOUT_FILE_NAME = "site.html"
+
 PAGE_LAYOUT_RESOURCE_NAME = "pagelayout"
+PAGE_LAYOUT_FILE_NAME = "page.html"
+
+SITE_LAYOUT_MANIFEST_FORMAT = ManifestFormat(SITE_LAYOUT_RESOURCE_NAME,
+        keys=('title', 'description', 'file'),
+        defaults={'file': 'site.html'},
+    )
+PAGE_LAYOUT_MANIFEST_FORMAT = ManifestFormat(PAGE_LAYOUT_RESOURCE_NAME,
+        keys=('title', 'description', 'file'),
+        defaults={'file': 'page.html'},
+    )
 
 class IPageFTI(IDexterityFTI):
     """Page factory type information.

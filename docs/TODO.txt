@@ -18,19 +18,21 @@ plone.app.page
      registry record is changed. Can use RecordModifiedEvent, but need a
      counter or similar.
 
- [ ] Define a manifest format for site and page layout resource directories
-    - Two options:
+ [x] Define a manifest format for site and page layout resource directories
         - One resource directory per site/page layout and a single
           manifest.cfg file.
-        - Each resource directory can contain multiple layout HTML files,
-          enumerated in its manifest.cfg file. Metadata is extracted from the
-          HTML file (e.g. in meta tags).
     - Add helpers to enumerate and find this information
 
- [ ] Add vocabulary of available page layout templates
- [ ] Add vocabulary of available site layouts
- [ ] Use vocabularies in ILayout
- [ ] Use vocabularies in FTI
+ [x] Add vocabulary of available page layout templates
+ [x] Add vocabulary of available site layouts
+ 
+ [x] Use vocabularies in ILayout
+ [x] Use vocabularies in FTI
+
+ [ ] Allow vocabulary of available site and page layouts to be 
+     white/black listed in FTI
+
+ [ ] Make it possible to re-use page add form for cloned FTIs
 
  [ ] Create helper to create new template page layouts from a content item
  [ ] Create helpers to change category of a content item
@@ -49,6 +51,7 @@ plone.app.page
     [ ] Resource traversers
     [ ] Layout indirection views
     [ ] Layout indirection view cache key + storage
+    [ ] Vocabularies
 
 plone.app.blocks
 ----------------

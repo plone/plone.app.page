@@ -91,6 +91,17 @@
         class=".sitelayout.DefaultSiteLayout"
         />
     
+    <!-- Register vocabularies -->
+    <utility
+        component=".resource.AvailableSiteLayoutsVocabularyFactory"
+        name="plone.app.page.availableSiteLayouts"
+        />
+    
+    <utility
+        component=".resource.AvailablePageLayoutsVocabularyFactory"
+        name="plone.app.page.availablePageLayouts"
+        />
+    
     <!-- Cache invalidation when global site layout changes -->
     <subscriber
         handler=".sitelayout.globalSiteLayoutModified"

@@ -22,7 +22,7 @@ class LayoutField(schema.Text):
 class ILayout(form.Schema):
     """Behavior interface to make a type support layout.
     """
-    form.fieldset('layout', label=_(u"Layout"), fields=['content', 'pageSiteLayout', 'sectionLayout'])
+    form.fieldset('layout', label=_(u"Layout"), fields=['content', 'pageSiteLayout', 'sectionSiteLayout'])
 
     content = schema.Text(
             title=_(u"Content"),
@@ -30,24 +30,24 @@ class ILayout(form.Schema):
             required=False,
         )
     
-    pageSiteLayout = schema.ASCIILine(
+    pageSiteLayout = schema.Choice(
             title=_(u"Section layout"),
             description=_(u"Current site layout"),
+            vocabulary="plone.app.page.availableSiteLayouts",
             required=False,
         )
     
-    sectionLayout = schema.ASCIILine(
+    sectionSiteLayout = schema.Choice(
             title=_(u"Section layout"),
             description=_(u"Default site layout for pages in this section"),
+            vocabulary="plone.app.page.availableSiteLayouts",
             required=False,
         )
-    
-    
     
 alsoProvides(ILayout, form.IFormFieldProvider)
 alsoProvides(ILayout['content'], IOmittedField)
 alsoProvides(ILayout['pageSiteLayout'], IOmittedField)
-alsoProvides(ILayout['sectionLayout'], IOmittedField)
+alsoProvides(ILayout['sectionSiteLayout'], IOmittedField)
 
 @adapter(ILayout, IObjectModifiedEvent)
 def setDefaultLayoutForNewPage(obj, event):
@@ -62,6 +62,11 @@ def setDefaultLayoutForNewPage(obj, event):
     layoutAware = ILayout(obj, None)
     if layoutAware is None:
         return
+    
+    # Initialise object
+    layoutAware.content = ILayout['layoutAware'].missing_value
+    layoutAware.pageSiteLayout = ILayout['pageSiteLayout'].missing_value
+    layoutAware.sectionSiteLayout = ILayout['sectionSiteLayout'].missing_value
     
     portal_type = obj.portal_type
     template = getDefaultPageLayout(portal_type)
