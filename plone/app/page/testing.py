@@ -4,6 +4,8 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import FunctionalTesting
 from plone.app import testing
 
+from zope.globalrequest import setRequest
+
 class PageLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
@@ -24,7 +26,6 @@ class PageLayer(PloneSandboxLayer):
                                  title='Foo Folder')]
         testing.setRoles(
             portal, testing.TEST_USER_ID, ['Member'])
-
 
 PAGE_FIXTURE = PageLayer()
 PAGE_INTEGRATION_TESTING = IntegrationTesting(bases=(PAGE_FIXTURE,), name="Page:Integration")

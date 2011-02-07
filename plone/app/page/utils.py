@@ -10,6 +10,8 @@ from plone.app.page.interfaces import IPageFTI
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 
+from zExceptions import NotFound
+
 _marker = object()
 
 def getDefaultPageLayout(portal_type):
@@ -116,10 +118,16 @@ def resolveResource(url):
     """
 
     response = subrequest(url)
+    if response.status == 404:
+        raise NotFound(url)
+    
     resolved = response.getBody()
     
     if isinstance(resolved, str):
         charset = extractCharset(response)
         resolved = resolved.decode(charset)
+    
+    if response.status != 200:
+        raise RuntimeError(resolved)
     
     return resolved

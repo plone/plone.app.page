@@ -7,7 +7,6 @@ from zope.schema.vocabulary import SimpleTerm
 from plone.resource.traversal import ResourceTraverser
 from plone.resource.manifest import getAllResources
 
-
 from plone.app.page.interfaces import SITE_LAYOUT_RESOURCE_NAME
 from plone.app.page.interfaces import SITE_LAYOUT_FILE_NAME
 from plone.app.page.interfaces import SITE_LAYOUT_MANIFEST_FORMAT

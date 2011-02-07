@@ -1,4 +1,5 @@
 import urlparse
+import logging
 
 from zope.interface import implements, alsoProvides
 from zope.component import adapter
@@ -12,6 +13,8 @@ from plone.app.page.interfaces import IOmittedField
 from plone.app.page.interfaces import ILayoutField
 
 from plone.app.page import PloneMessageFactory as _
+
+LOGGER = logging.getLogger('plone.app.page.layoutbehavior')
 
 class LayoutField(schema.Text):
     """A field used to store layout information
@@ -54,7 +57,7 @@ def setDefaultLayoutForNewPage(obj, event):
     """When a new page is created, set its layout based on the default in
     the FTI
     """
-    
+        
     # Avoid circular import
     from plone.app.page.utils import getDefaultPageLayout
     from plone.app.page.utils import resolveResource
@@ -75,4 +78,8 @@ def setDefaultLayoutForNewPage(obj, event):
         raise ValueError("Cannot find layout template for %s" % portal_type)
     
     templatePath = urlparse.urljoin(obj.absolute_url_path(), template)
-    layoutAware.content = resolveResource(templatePath)
+    
+    try:
+        layoutAware.content = resolveResource(templatePath)
+    except:
+        LOGGER.exception("Could not resolve default page layout %s" % portal_type)

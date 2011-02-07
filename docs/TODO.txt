@@ -14,6 +14,9 @@ plone.app.page
         - calculates appropriate site layout using getDefaultSiteLayout()
         - caches per context
 
+ [ ] Make sure /++sitelayout++ and /++pagelayout++ a relative to the Plone
+     site root, not the Zope root
+
  [x] Invalidate cache key in sitelayout.py if global default site layout 
      registry record is changed. Can use RecordModifiedEvent, but need a
      counter or similar.
@@ -56,6 +59,7 @@ plone.app.page
     [ ] Layout indirection views
     [ ] Layout indirection view cache key + storage
     [ ] Vocabularies
+    [x] Default page content event subscriber
 
 plone.app.blocks
 ----------------
