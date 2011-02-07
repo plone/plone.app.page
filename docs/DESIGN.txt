@@ -133,8 +133,9 @@ Flow:
         * Panels that exist only in the new template are filled with the
           (placeholder) tiles from the layout template 
 
-**TODO**: Define helper to enumerate all page layouts using
-``plone.resource.manifest``
+Components:
+
+    * ``plone.app.page.availablePageLayouts`` vocabulary
 
 **TODO**: Define mechanism to constrain this list in the page FTI
 
@@ -168,8 +169,9 @@ Flow:
         * Panels that exist only in the new template are filled with the
           (placeholder) tiles from the layout template 
 
-**TODO:** Define helpers to enumerate site layouts defined in ``sitelayout``
-resource directories.
+Components:
+
+    * ``plone.app.page.availableSiteLayouts`` vocabulary
 
 **TODO:** Define mechanism for restricting site layouts in the page FTI
 
@@ -186,8 +188,7 @@ Components:
 
     * ``sectionSiteLayout`` attribute of ``ILayout`` behaviour
     * ``getPageSiteLayout()`` in ``plone.app.page.utils``
-
-**TODO:** Define helper to enumerate available site layouts
+    * ``plone.app.page.availableSiteLayouts`` vocabulary
 
 As an administrator, I can edit the site layout and insert tiles
 ----------------------------------------------------------------
@@ -279,11 +280,6 @@ Components:
 
     * ``plone.resource`` resource directories' ``exportZip()`` method
     * See ``plone.app.theming`` for example code
-    
-**TODO:** Is a resource directory the correct abstraction here? This implies
-we are working on a set of related layouts. Perhaps we need the UI to reflect
-this so layouts are always created in (and can be moved between) resource
-directories, which are the units of export/import.
 
 As a site administrator, I can deploy layouts and categories from an archive, without needing filesystem access
 ---------------------------------------------------------------------------------------------------------------
@@ -297,10 +293,9 @@ Flow:
 
 Components:
 
+    * Page and site layout manifest formats
     * ``plone.resource`` resource directories' ``importZip()`` method
     * See ``plone.app.theming`` for example code
-
-**TODO:** Define manifest format
 
 As a site administrator, I can deploy layouts and categories from an archive as part of an automated build process
 ------------------------------------------------------------------------------------------------------------------
@@ -479,8 +474,6 @@ The out-of-the-box tiles should all be transient.
 
 Note that tiles may reference binary data, either in the ZODB or in a
 resource directory.
-
-**TODO:** Ensure this works with files in ``plone.resource`` directory.
 
 Persistent tiles may be added to pages. Their data will be stored in
 annotations.

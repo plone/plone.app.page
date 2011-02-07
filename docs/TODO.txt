@@ -29,16 +29,20 @@ plone.app.page
  [x] Use vocabularies in ILayout
  [x] Use vocabularies in FTI
 
+ [x] Make it possible to re-use page add form for cloned FTIs
+
  [ ] Allow vocabulary of available site and page layouts to be 
      white/black listed in FTI
 
- [ ] Make it possible to re-use page add form for cloned FTIs
-
- [ ] Create helper to create new template page layouts from a content item
- [ ] Create helpers to change category of a content item
+ [x] Create helpers to change category of a content item
     - This means changing the portal_type to a different PageFTI instance
 
+ [ ] Add support for absolute prefix in page and site layouts
+    - This will allow layouts to make reference to resources via relative
+      links
+
  [ ] Create per-item behaviour adapter
+ [ ] Create helper to create new template page layouts from a content item
 
  [ ] Tests for
     [ ] getDefaultPageLayout()

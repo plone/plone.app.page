@@ -78,12 +78,14 @@ def clonePageType(portal_types, name, newName, title, description, **kwargs):
     
     for prop in oldFTI._properties:
         propId = prop['id']
-        oldValue = getattr(oldFTI, propId, _marker)
-        if oldValue is not _marker:
-            kwargs[propId] = oldValue
+        if propId not in kwargs:
+            oldValue = getattr(oldFTI, propId, _marker)
+            if oldValue is not _marker:
+                kwargs[propId] = oldValue
     
     kwargs['title'] = title
     kwargs['description'] = description
+    kwargs['add_view_expr'] = 'string:${folder_url}/++add++%s' % newName
     
     newFTI.manage_changeProperties(**kwargs)
     portal_types._setObject(newFTI.id, newFTI)
