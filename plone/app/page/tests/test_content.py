@@ -56,7 +56,7 @@ class IntegrationTests(unittest.TestCase):
         import os.path
         
         from zope.component import provideUtility
-        from zope.component import getSiteManager
+        from zope.component import getGlobalSiteManager
         
         from plone.resource.directory import FilesystemResourceDirectory
         from plone.resource.interfaces import IResourceDirectory
@@ -78,7 +78,7 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual(layout.pageSiteLayout, None)
         self.assertEqual(layout.sectionSiteLayout, None)
         
-        getSiteManager().unregisterUtility(resourceDir,
+        getGlobalSiteManager().unregisterUtility(resourceDir,
                 provided=IResourceDirectory,
                 name=u'++pagelayout++default',
             )

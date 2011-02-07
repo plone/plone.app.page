@@ -1,4 +1,5 @@
 from zope.component import queryUtility
+from zope.site.hooks import getSite
 
 from plone.subrequest import subrequest
 from plone.registry.interfaces import IRegistry
@@ -11,6 +12,8 @@ from Acquisition import aq_inner
 from Acquisition import aq_parent
 
 from zExceptions import NotFound
+
+from Products.CMFCore.utils import getToolByName
 
 _marker = object()
 
@@ -114,9 +117,15 @@ def extractCharset(response, default='utf-8'):
     return charset
 
 def resolveResource(url):
-    """Resolve the given URL to a unicode string
+    """Resolve the given URL to a unicode string. If the URL is an absolute
+    path, it will be made relative to the Plone site root.
     """
-
+    
+    if url.startswith('/'):
+        site = getSite()
+        portal_url = getToolByName(site, 'portal_url')
+        url = portal_url.getPortalObject().absolute_url_path() + url
+    
     response = subrequest(url)
     if response.status == 404:
         raise NotFound(url)

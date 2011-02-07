@@ -14,7 +14,7 @@ plone.app.page
         - calculates appropriate site layout using getDefaultSiteLayout()
         - caches per context
 
- [ ] Make sure /++sitelayout++ and /++pagelayout++ a relative to the Plone
+ [x] Make sure /++sitelayout++ and /++pagelayout++ a relative to the Plone
      site root, not the Zope root
 
  [x] Invalidate cache key in sitelayout.py if global default site layout 
