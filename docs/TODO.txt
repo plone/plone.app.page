@@ -6,7 +6,7 @@ plone.app.page
 
  [x] Improve management of site layout
     - Create a view @@page-site-layout
-        - available on all ILayout
+        - available on all ILayoutAware
         - calculates appropriate site layout using getPageSiteLayout()
         - caches per context
     - Create a view @@default-site-layout
@@ -29,7 +29,7 @@ plone.app.page
  [x] Add vocabulary of available page layout templates
  [x] Add vocabulary of available site layouts
  
- [x] Use vocabularies in ILayout
+ [x] Use vocabularies in ILayoutAware
  [x] Use vocabularies in FTI
 
  [x] Make it possible to re-use page add form for cloned FTIs
@@ -47,19 +47,8 @@ plone.app.page
  [ ] Create per-item behaviour adapter
  [ ] Create helper to create new template page layouts from a content item
 
- [ ] Tests for
-    [ ] getDefaultPageLayout()
-    [ ] getDefaultSiteLayout()
-    [ ] getPageSiteLayout()
-    [ ] getPageTypes()
-    [ ] clonePageType()
-    [ ] getDefaultPageContent()
-    [ ] changePageType()
-    [ ] Resource traversers
-    [ ] Layout indirection views
-    [ ] Layout indirection view cache key + storage
-    [ ] Vocabularies
-    [x] Default page content event subscriber
+ [ ] Complete tests in plone.app.blocks
+ [ ] Complete tests in plone.app.page
 
 plone.app.blocks
 ----------------
@@ -100,5 +89,3 @@ plone.app.workflow
 ------------------
 
  [ ] Fix test failures
- 
-

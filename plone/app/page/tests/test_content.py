@@ -14,7 +14,7 @@ class IntegrationTests(unittest.TestCase):
     def test_attributes_and_reindexing(self):
         from zope.lifecycleevent import modified
 
-        # Demonstrate that dynamic types such as plone.page
+        # Demonstrate that dynamic types such as ``page``
         # automatically get the attributes specified in their model, and
         # that content is reindexed when an IObjectModified event is fired.
 
@@ -33,20 +33,20 @@ class IntegrationTests(unittest.TestCase):
     def test_behavior_registered(self):
         from zope.component import getUtility
         from plone.behavior.interfaces import IBehavior
-        from plone.app.page.layoutbehavior import ILayout
+        from plone.app.blocks.layoutbehavior import ILayoutAware
 
-        behavior = getUtility(IBehavior, name=u"plone.app.page.layoutbehavior.ILayout")
+        behavior = getUtility(IBehavior, name=u"plone.app.blocks.layoutbehavior.ILayoutAware")
         self.assertEqual(behavior.title, u'Layout support')
-        self.assertEqual(behavior.interface, ILayout)
-        self.assertEqual(behavior.marker, ILayout)
+        self.assertEqual(behavior.interface, ILayoutAware)
+        self.assertEqual(behavior.marker, ILayoutAware)
 
     def test_behavior_defaults(self):
-        from plone.app.page.layoutbehavior import ILayout
+        from plone.app.blocks.layoutbehavior import ILayoutAware
         
         self.layer['folder'].invokeFactory('page', 'dp')
         
         obj = self.layer['folder']['dp']
-        layout = ILayout(obj)
+        layout = ILayoutAware(obj)
         
         self.assertEqual(layout.content, None)
         self.assertEqual(layout.pageSiteLayout, None)
@@ -61,7 +61,7 @@ class IntegrationTests(unittest.TestCase):
         from plone.resource.directory import FilesystemResourceDirectory
         from plone.resource.interfaces import IResourceDirectory
         
-        from plone.app.page.layoutbehavior import ILayout
+        from plone.app.blocks.layoutbehavior import ILayoutAware
         
         basePath = os.path.dirname(__file__)
         resourcePath = os.path.join(basePath, 'resources', 'pagelayout', 'default')
@@ -72,7 +72,7 @@ class IntegrationTests(unittest.TestCase):
         self.layer['folder'].invokeFactory('page', 'dp')
         
         obj = self.layer['folder']['dp']
-        layout = ILayout(obj)
+        layout = ILayoutAware(obj)
         
         self.assertEqual(layout.content, u"<div>a page</div>")
         self.assertEqual(layout.pageSiteLayout, None)

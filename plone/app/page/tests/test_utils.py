@@ -12,18 +12,6 @@ class TestUtils(unittest.TestCase):
     def test_getDefaultPageLayout_not_page_fti(self):
         pass
     
-    def test_getDefaultSiteLayout_global(self):
-        pass
-    
-    def test_getDefaultSiteLayout_not_page_fti(self):
-        pass
-
-    def test_getDefaultSiteLayout_from_parent(self):
-        pass
-
-    def test_getDefaultSiteLayout_not_in_registry(self):
-        pass
-
     def test_getPageSiteLayout(self):
         pass
     

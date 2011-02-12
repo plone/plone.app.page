@@ -1,24 +1,18 @@
 from zope.interface import Interface
 from zope import schema
 
-from plone.dexterity.interfaces import IDexterityFTI
 from plone.resource.manifest import ManifestFormat
 
-from plone.app.page import PloneMessageFactory as _
+from plone.dexterity.interfaces import IDexterityFTI
 
-SITE_LAYOUT_RESOURCE_NAME = "sitelayout"
-SITE_LAYOUT_FILE_NAME = "site.html"
+from plone.app.page import PloneMessageFactory as _
 
 PAGE_LAYOUT_RESOURCE_NAME = "pagelayout"
 PAGE_LAYOUT_FILE_NAME = "page.html"
 
-SITE_LAYOUT_MANIFEST_FORMAT = ManifestFormat(SITE_LAYOUT_RESOURCE_NAME,
-        keys=('title', 'description', 'file'),
-        defaults={'file': 'site.html'},
-    )
 PAGE_LAYOUT_MANIFEST_FORMAT = ManifestFormat(PAGE_LAYOUT_RESOURCE_NAME,
         keys=('title', 'description', 'file'),
-        defaults={'file': 'page.html'},
+        defaults={'file': PAGE_LAYOUT_FILE_NAME},
     )
 
 class IPageFTI(IDexterityFTI):
@@ -32,14 +26,16 @@ class IPageFTI(IDexterityFTI):
       are implemented as FTIs)
     """
     
-    default_site_layout = schema.ASCIILine(
+    default_site_layout = schema.Choice(
             title=_(u"Default site layout"),
             description=_(u"The default site layout used when creating new pages of this type"),
+            vocabulary='plone.availableSiteLayouts',
         )
     
-    default_page_layout_template = schema.ASCIILine(
+    default_page_layout_template = schema.Choice(
             title=_(u"Default page layout template"),
             description=_(u"The default page layout template used when creating new pages of this type"),
+            vocabulary='plone.availablePageLayouts',
         )
 
 class IPageForm(Interface):
@@ -47,13 +43,4 @@ class IPageForm(Interface):
     
     A special form layout template is defined for this marker interface, which
     references the site layout and invokes Block editing.
-    """
-
-class IOmittedField(Interface):
-    """Marker interface for schema fields not to be shown in the Deco
-    editor
-    """
-
-class ILayoutField(Interface):
-    """Marker interface for the layout field
     """

@@ -7,15 +7,14 @@
     xmlns:five="http://namespaces.zope.org/five"
     i18n_domain="plone">
 
-    <include package="plone.behavior" file="meta.zcml" />
     <include package="plone.app.dexterity" />
+    <include package="plone.app.blocks" />
     
     <include package="plone.resource" />
     <include package="plone.subrequest" />
     
-    <!-- Grok the Dexterity type and behaviour (only) -->
+    <!-- Grok the Dexterity type (only) -->
     <grok:grok package=".content" />
-    <grok:grok package=".layoutbehavior" />
     
     <!-- Register resource directory for images -->
     <browser:resourceDirectory
@@ -50,25 +49,7 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
     
-    <!-- Register the layout behavior -->
-    <plone:behavior
-        title="Layout support"
-        description="Adds layout support to your content type"
-        provides=".layoutbehavior.ILayout"
-        />
-    
-    <subscriber
-        handler=".layoutbehavior.setDefaultLayoutForNewPage"
-        />
-    
-    <!-- Register the resource traversers -->
-    <adapter
-        name="sitelayout"
-        for="* zope.publisher.interfaces.IRequest"
-        provides="zope.traversing.interfaces.ITraversable"
-        factory=".resource.SiteLayoutTraverser"
-        />
-    
+    <!-- Register resource traverser -->
     <adapter
         name="pagelayout"
         for="* zope.publisher.interfaces.IRequest"
@@ -76,35 +57,18 @@
         factory=".resource.PageLayoutTraverser"
         />
     
-    <!-- Register indirection views for looking up the layout -->
-    <browser:view
-        name="page-site-layout"
-        for=".layoutbehavior.ILayout"
-        permission="zope.Public"
-        class=".sitelayout.PageSiteLayout"
-        />
-    
-    <browser:view
-        name="default-site-layout"
-        for="*"
-        permission="zope.Public"
-        class=".sitelayout.DefaultSiteLayout"
-        />
-    
-    <!-- Register vocabularies -->
-    <utility
-        component=".resource.AvailableSiteLayoutsVocabularyFactory"
-        name="plone.app.page.availableSiteLayouts"
-        />
-    
+    <!-- Register vocabulary -->
     <utility
         component=".resource.AvailablePageLayoutsVocabularyFactory"
-        name="plone.app.page.availablePageLayouts"
+        name="plone.availablePageLayouts"
         />
     
-    <!-- Cache invalidation when global site layout changes -->
-    <subscriber
-        handler=".sitelayout.globalSiteLayoutModified"
+    <!-- Default site layout lookup for pages -->
+    <browser:view
+        name="page-site-layout"
+        for=".content.IPage"
+        permission="zope.Public"
+        class=".resource.PageSiteLayout"
         />
     
 </configure>

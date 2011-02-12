@@ -6,14 +6,15 @@ from zope.schema.interfaces import IVocabularyFactory
 from plone.dexterity.fti import DexterityFTI
 
 from plone.app.content.interfaces import INameFromTitle
+
 from plone.app.dexterity.behaviors.metadata import IDublinCore
+
+from plone.app.blocks.layoutbehavior import ILayoutAware
 
 from plone.app.page.interfaces import IPageFTI
 from plone.app.page.interfaces import PAGE_LAYOUT_RESOURCE_NAME
 from plone.app.page.interfaces import PAGE_LAYOUT_FILE_NAME
-
 from plone.app.page.content import IPage
-from plone.app.page.layoutbehavior import ILayout
 
 from Products.CMFCore.browser.typeinfo import FactoryTypeInformationAddView
 
@@ -25,7 +26,7 @@ class PageFTI(DexterityFTI):
         - The immediate view is ``edit`` - this is where we go immediately
           after creation.
         - Behaviours default to a standard Plone set. Removing IDublinCore
-          or ILayout is likely to be problematic.
+          or ILayoutAware is likely to be problematic.
         - We keep track of the default site layout for instances of this type
         - We keep track of the default page layout template for instances of
           this type
@@ -55,7 +56,7 @@ class PageFTI(DexterityFTI):
     immediate_view = 'edit'
     klass = 'plone.dexterity.content.Container'
     schema = IPage.__identifier__
-    behaviors = [INameFromTitle.__identifier__, IDublinCore.__identifier__, ILayout.__identifier__]
+    behaviors = [INameFromTitle.__identifier__, IDublinCore.__identifier__, ILayoutAware.__identifier__]
     
     model_source = ""
     
@@ -63,12 +64,12 @@ class PageFTI(DexterityFTI):
     default_page_layout_template = "/++%s++default/%s" % (PAGE_LAYOUT_RESOURCE_NAME, PAGE_LAYOUT_FILE_NAME,)
     
     def availableSiteLayouts(self):
-        factory = getUtility(IVocabularyFactory, name=u"plone.app.page.availableSiteLayouts")
+        factory = getUtility(IVocabularyFactory, name=u"plone.availableSiteLayouts")
         vocabulary = factory(self)
         return [t.value for t in vocabulary]
         
     def availablePageLayouts(self):
-        factory = getUtility(IVocabularyFactory, name=u"plone.app.page.availablePageLayouts")
+        factory = getUtility(IVocabularyFactory, name=u"plone.availablePageLayouts")
         vocabulary = factory(self)
         return [t.value for t in vocabulary]
 

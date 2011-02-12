@@ -1,19 +1,13 @@
 from zope.component import queryUtility
-from zope.site.hooks import getSite
 
-from plone.subrequest import subrequest
 from plone.registry.interfaces import IRegistry
 from plone.dexterity.interfaces import IDexterityFTI
 
-from plone.app.page.layoutbehavior import ILayout
+from plone.app.blocks.layoutbehavior import ILayoutAware
 from plone.app.page.interfaces import IPageFTI
 
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-
-from zExceptions import NotFound
-
-from Products.CMFCore.utils import getToolByName
 
 _marker = object()
 
@@ -24,17 +18,22 @@ def getDefaultPageLayout(portal_type):
     
     return fti.default_page_layout_template
 
-def getDefaultSiteLayout(context):
-    """Get the path to the site layout to use by default for the given content
-    object
-    """
+def getPageSiteLayout(context):
+    """Get the path to the site layout for a page. This is generally only
+    appropriate for the view of this page. For a generic template or view, use
+    getDefaultSiteLayout(context) instead. """
+    
+    layoutAware = ILayoutAware(context, None)
+    if layoutAware is not None:
+        if getattr(layoutAware, 'pageSiteLayout', None):
+            return layoutAware.pageSiteLayout
     
     # Note: the sectionSiteLayout on context is for pages *under* context, not
     # necessarily context itself
 
     parent = aq_parent(aq_inner(context))
     while parent is not None:
-        layout = ILayout(parent, None)
+        layout = ILayoutAware(parent, None)
         if layout is not None:
             if getattr(layout, 'sectionSiteLayout', None):
                 return layout.sectionSiteLayout
@@ -50,19 +49,6 @@ def getDefaultSiteLayout(context):
         return None
     
     return registry.get('plone.defaultSiteLayout')
-
-def getPageSiteLayout(context):
-    """Get the path to the site layout for a page. This is generally only
-    appropriate for the view of this page. For a generic template or view, use
-    getDefaultSiteLayout(context) instead. """
-    
-    layoutAware = ILayout(context, None)
-    if layoutAware is not None:
-        if getattr(layoutAware, 'pageSiteLayout', None) is not None:
-            return layoutAware.pageSiteLayout
-    
-    return getDefaultSiteLayout(context)
-    
 
 def getPageTypes(portal_types, container=None):
     """Return a list of Page FTIs from the portal_types tool.
@@ -103,40 +89,3 @@ def changePageType(context, new_type, reindex=True):
     
     if reindex:
         context.reindexObject()
-
-def extractCharset(response, default='utf-8'):
-    """Get the charset of the given response
-    """
-
-    charset = default
-    if 'content-type' in response.headers:
-        for item in response.headers['content-type'].split(';'):
-            if item.strip().startswith('charset'):
-                charset = item.split('=')[1].strip()
-                break
-    return charset
-
-def resolveResource(url):
-    """Resolve the given URL to a unicode string. If the URL is an absolute
-    path, it will be made relative to the Plone site root.
-    """
-    
-    if url.startswith('/'):
-        site = getSite()
-        portal_url = getToolByName(site, 'portal_url')
-        url = portal_url.getPortalObject().absolute_url_path() + url
-    
-    response = subrequest(url)
-    if response.status == 404:
-        raise NotFound(url)
-    
-    resolved = response.getBody()
-    
-    if isinstance(resolved, str):
-        charset = extractCharset(response)
-        resolved = resolved.decode(charset)
-    
-    if response.status != 200:
-        raise RuntimeError(resolved)
-    
-    return resolved

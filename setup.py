@@ -33,6 +33,7 @@ setup(name='plone.app.page',
           'plone.memoize',
           'plone.directives.form',
           'plone.app.dexterity',
+          'plone.app.blocks',
           'Products.CMFCore',
       ],
       extras_require = {
