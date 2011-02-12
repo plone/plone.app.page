@@ -4,6 +4,8 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import FunctionalTesting
 from plone.app import testing
 
+from zope.configuration import xmlconfig
+
 class PageLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE,)
@@ -13,6 +15,41 @@ class PageLayer(PloneSandboxLayer):
         import plone.app.page
         self.loadZCML(name='meta.zcml', package=plone.app.page)
         self.loadZCML(package=plone.app.page)
+        
+        # Register directory for testing
+        xmlconfig.string("""\
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="plone"
+    package="plone.app.page.tests">
+    
+    <plone:static
+        type="sitelayout"
+        name="testlayout1"
+        directory="resources/sitelayout/testlayout1"
+        />
+    
+    <plone:static
+        type="sitelayout"
+        name="testlayout2"
+        directory="resources/sitelayout/testlayout2"
+        />
+    
+    <plone:static
+        type="pagelayout"
+        name="testlayout1"
+        directory="resources/pagelayout/testlayout1"
+        />
+    
+    <plone:static
+        type="pagelayout"
+        name="testlayout2"
+        directory="resources/pagelayout/testlayout2"
+        />
+
+</configure>
+""", context=configurationContext)
 
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup

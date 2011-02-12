@@ -3,7 +3,9 @@ from zope.component import queryUtility
 from plone.registry.interfaces import IRegistry
 from plone.dexterity.interfaces import IDexterityFTI
 
+from plone.app.blocks.interfaces import DEFAULT_SITE_LAYOUT_REGISTRY_KEY
 from plone.app.blocks.layoutbehavior import ILayoutAware
+
 from plone.app.page.interfaces import IPageFTI
 
 from Acquisition import aq_inner
@@ -48,7 +50,7 @@ def getPageSiteLayout(context):
     if registry is None:
         return None
     
-    return registry.get('plone.defaultSiteLayout')
+    return registry.get(DEFAULT_SITE_LAYOUT_REGISTRY_KEY)
 
 def getPageTypes(portal_types, container=None):
     """Return a list of Page FTIs from the portal_types tool.

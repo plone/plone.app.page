@@ -34,21 +34,27 @@ plone.app.page
 
  [x] Make it possible to re-use page add form for cloned FTIs
 
- [ ] Allow vocabulary of available site and page layouts to be 
-     white/black listed in FTI
-
  [x] Create helpers to change category of a content item
     - This means changing the portal_type to a different PageFTI instance
 
- [ ] Add support for absolute prefix in page and site layouts
-    - This will allow layouts to make reference to resources via relative
-      links
+ [ ] Allow vocabulary of available site and page layouts to be 
+     white/black listed in FTI
 
  [ ] Create per-item behaviour adapter
- [ ] Create helper to create new template page layouts from a content item
+    - Can be done in plone.behavior and just enabled by marker interface or
+      ZCML registration on the Page type
+    - Will probably require a specific Page class (subclass of Dexterity's
+      Container class)
 
- [ ] Complete tests in plone.app.blocks
- [ ] Complete tests in plone.app.page
+ [ ] Create helper to create new template page layouts from a content item
+    - Copies ILayoutAware(context).content to a new pagelayout resource
+      directory in the ZODB
+
+ [ ] Add drafts support so that tile drafting works
+    - Should probably be done at the Dexterity level
+    - Jason Mehring has a branch looking at this
+
+ [x] Complete tests in plone.app.page
 
 plone.app.blocks
 ----------------
@@ -56,18 +62,28 @@ plone.app.blocks
  [ ] The DOCTYPE is lost after applying the XSLT in tile page rendering mode
  [ ] Create pure XSLT version
 
+ [ ] Add support for absolute prefix in site layouts
+    - This will allow layouts to make reference to resources via relative
+      links
+    - Probably best to do this just in the DefaultSiteLayout view
+
+ [x] Complete tests in plone.app.blocks
+    - Update rendering.txt to show using the sitelayout traverser
+    - Add tests for @@default-page-layout
+
 plone.app.tiles
 ---------------
 
  [ ] Create "null add form" view for tiles with no configuration
  [ ] Fix test failures
+    - Seem to be related to test browser and cookies when setting drafts
  [ ] Fix test errors when run in aggregate with other tests
- 
+
 plone.app.standardtiles
 -----------------------
 
  [ ] Split tests up - it's impossible to debug one giant doctest
- [ ] Fix test failures under Plone 4.1
+ [ ] Fix test failures
 
 plone.app.deco
 --------------

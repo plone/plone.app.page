@@ -1,17 +1,11 @@
-import urlparse
-
 from zope.component import queryUtility
-
-from zope.publisher.browser import BrowserView
-
-from plone.memoize.volatile import cache, store_on_context
 
 from plone.resource.traversal import ResourceTraverser
 
 from plone.dexterity.interfaces import IDexterityFTI
 
-from plone.app.blocks.utils import resolveResource
 from plone.app.blocks.resource import AvailableLayoutsVocabulary
+from plone.app.blocks.resource import DefaultSiteLayout
 
 from plone.app.page.interfaces import PAGE_LAYOUT_RESOURCE_NAME
 from plone.app.page.interfaces import PAGE_LAYOUT_FILE_NAME
@@ -49,7 +43,7 @@ def cacheKey(method, self):
             catalog.getCounter(),
         )
 
-class PageSiteLayout(BrowserView):
+class PageSiteLayout(DefaultSiteLayout):
     """Look up and render the site layout to use for the context.
     
     Use this only for the view of a page that has the ILayout behavior
@@ -63,8 +57,5 @@ class PageSiteLayout(BrowserView):
     section-specific settings into account.
     """
     
-    @cache(cacheKey, store_on_context)
-    def __call__(self):
-        layout = getPageSiteLayout(self.context)
-        path = urlparse.urljoin(self.context.absolute_url_path(), layout)
-        return resolveResource(path)
+    def _getLayout(self):
+        return getPageSiteLayout(self.context)
