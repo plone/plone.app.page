@@ -29,11 +29,11 @@ class ICreateNewPageTypeForm(Interface):
     description = schema.Text(
             title=_(u"Description"),
             description=_(u"A short description of the new page type"),
+            required=False,
         )
     
     change = schema.Bool(
             title=_(u"Change the type of this page to the new page type"),
-            required=True,
             default=True,
         )
 
@@ -57,7 +57,11 @@ class CreateNewPageTypeForm(form.Form):
         title = data['title']
         description = data['description']
         change = data['change']
-        content = ILayoutAware(self.context).content
+        
+        layoutAware = ILayoutAware(self.context)
+        
+        content = layoutAware.content
+        siteLayout = layoutAware.pageSiteLayout
         
         # Save the resource for the template page layout
         filename = PAGE_LAYOUT_FILE_NAME
@@ -76,10 +80,11 @@ class CreateNewPageTypeForm(form.Form):
         utils.clonePageType(portal_types, self.context.portal_type, name,
                 title=title,
                 description=description,
+                default_site_layout=siteLayout,
                 default_page_layout_template="/++%s++%s/%s" % (PAGE_LAYOUT_RESOURCE_NAME, pagelayout, filename,),
             )
         
-        # Change the current item's page type if applicable        
+        # Change the current item's page type if applicable
         if change:
             utils.changePageType(self.context, name)
         

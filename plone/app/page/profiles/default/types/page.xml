@@ -49,11 +49,11 @@
   </action>
   <action title="Save As Type" action_id="createPageType" category="object" condition_expr=""
           url_expr="string:${object_url}/@@create-new-page-type" visible="True">
-    <permission value="Plone: Create New Page Type"/>
+    <permission value="Plone: Create Page Type"/>
   </action>
   <action title="Layouts" action_id="manageLayouts" category="object" condition_expr=""
           url_expr="string:${object_url}/@@manage-layouts" visible="True">
-    <permission value="Plone: Manage Layouts"/>
+    <permission value="Plone: Manage Site Layouts"/>
   </action>
   
 </object>

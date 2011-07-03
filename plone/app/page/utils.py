@@ -79,6 +79,7 @@ def clonePageType(portal_types, name, newName, title, description, **kwargs):
     oldFTI = portal_types[name]
     newFTI = oldFTI.__class__(newName)
     
+    # Properties
     for prop in oldFTI._properties:
         propId = prop['id']
         if propId not in kwargs:
@@ -91,6 +92,16 @@ def clonePageType(portal_types, name, newName, title, description, **kwargs):
     kwargs['add_view_expr'] = 'string:${folder_url}/++add++%s' % newName
     
     newFTI.manage_changeProperties(**kwargs)
+    
+    # Actions
+    actions = []
+    for oldAction in oldFTI.listActions():
+        actions.add(oldAction.clone())
+    newFTI._actions = tuple(actions)
+    
+    # Aliases
+    newFTI._aliases = oldFTI._aliases.copy()
+    
     portal_types._setObject(newFTI.id, newFTI)
 
 def changePageType(context, new_type, reindex=True):

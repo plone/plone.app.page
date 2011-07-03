@@ -60,13 +60,21 @@ class PageFTI(DexterityFTI):
     
     model_source = ""
     
-    default_site_layout = None # use global default
     default_page_layout_template = "/++%s++default/%s" % (PAGE_LAYOUT_RESOURCE_NAME, PAGE_LAYOUT_FILE_NAME,)
+    
+    @property
+    def default_site_layout(self):
+        return self.__dict__.get('default_site_layout', None)
+    @default_site_layout.setter
+    def default_site_layout(self, value):
+        if value == '(Default)':
+            value = None
+        self.__dict__['default_site_layout'] = value
     
     def availableSiteLayouts(self):
         factory = getUtility(IVocabularyFactory, name=u"plone.availableSiteLayouts")
         vocabulary = factory(self)
-        return [t.value for t in vocabulary]
+        return ['(Default)'] + [t.value for t in vocabulary]
         
     def availablePageLayouts(self):
         factory = getUtility(IVocabularyFactory, name=u"plone.availablePageLayouts")
