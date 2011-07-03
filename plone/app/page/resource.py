@@ -1,8 +1,4 @@
-from zope.component import queryUtility
-
 from plone.resource.traversal import ResourceTraverser
-
-from plone.dexterity.interfaces import IDexterityFTI
 
 from plone.app.blocks.resource import AvailableLayoutsVocabulary
 from plone.app.blocks.resource import DefaultSiteLayout
@@ -12,8 +8,6 @@ from plone.app.page.interfaces import PAGE_LAYOUT_FILE_NAME
 from plone.app.page.interfaces import PAGE_LAYOUT_MANIFEST_FORMAT
 
 from plone.app.page.utils import getPageSiteLayout
-
-from Products.CMFCore.utils import getToolByName
 
 class PageLayoutTraverser(ResourceTraverser):
     """The page layout traverser.
@@ -28,20 +22,6 @@ AvailablePageLayoutsVocabularyFactory = AvailableLayoutsVocabulary(
         PAGE_LAYOUT_MANIFEST_FORMAT,
         PAGE_LAYOUT_FILE_NAME,
     )
-
-def cacheKey(method, self):
-    """Invalidate if the fti is modified, the global registry is modified,
-    or the content is modified
-    """
-    
-    catalog = getToolByName(self.context, 'portal_catalog')
-    fti = queryUtility(IDexterityFTI, name=self.context.portal_type)
-    
-    return (
-            getattr(self.context, '_p_mtime', None),
-            getattr(fti, '_p_mtime', None),
-            catalog.getCounter(),
-        )
 
 class PageSiteLayout(DefaultSiteLayout):
     """Look up and render the site layout to use for the context.

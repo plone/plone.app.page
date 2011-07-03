@@ -23,7 +23,8 @@ def getDefaultPageLayout(portal_type):
 def getPageSiteLayout(context):
     """Get the path to the site layout for a page. This is generally only
     appropriate for the view of this page. For a generic template or view, use
-    getDefaultSiteLayout(context) instead. """
+    getDefaultSiteLayout(context) instead.
+    """
     
     layoutAware = ILayoutAware(context, None)
     if layoutAware is not None:
