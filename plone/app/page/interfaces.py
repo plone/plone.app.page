@@ -15,6 +15,10 @@ PAGE_LAYOUT_MANIFEST_FORMAT = ManifestFormat(PAGE_LAYOUT_RESOURCE_NAME,
         defaults={'file': PAGE_LAYOUT_FILE_NAME},
     )
 
+class IPage(Interface):
+    """The page type
+    """
+
 class IPageFTI(IDexterityFTI):
     """Page factory type information.
     
@@ -37,10 +41,3 @@ class IPageFTI(IDexterityFTI):
             description=_(u"The default page layout template used when creating new pages of this type"),
             vocabulary='plone.availablePageLayouts',
         )
-
-class IPageForm(Interface):
-    """Marker interface for forms to be wrapped in a Deco interface.
-    
-    A special form layout template is defined for this marker interface, which
-    references the site layout and invokes Block editing.
-    """

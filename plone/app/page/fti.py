@@ -14,7 +14,7 @@ from plone.app.blocks.layoutbehavior import ILayoutAware
 from plone.app.page.interfaces import IPageFTI
 from plone.app.page.interfaces import PAGE_LAYOUT_RESOURCE_NAME
 from plone.app.page.interfaces import PAGE_LAYOUT_FILE_NAME
-from plone.app.page.content import IPage
+from plone.app.page.interfaces import IPage
 
 from Products.CMFCore.browser.typeinfo import FactoryTypeInformationAddView
 

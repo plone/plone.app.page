@@ -1,6 +1,5 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:grok="http://namespaces.zope.org/grok"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:plone="http://namespaces.plone.org/plone"
@@ -13,8 +12,58 @@
     <include package="plone.resource" />
     <include package="plone.subrequest" />
     
-    <!-- Grok the Dexterity type (only) -->
-    <grok:grok package=".content" />
+    <!-- Permissions -->
+    <permission
+        id="plone.CreatePageType"
+        title="Plone: Create Page Type"
+        />
+    
+    <permission
+        id="plone.ChangePageType"
+        title="Plone: Change Page Type"
+        />
+    
+    <!-- Register the page type's views and subscribers -->
+    <browser:page
+        for=".interfaces.IPage"
+        name="view"
+        class=".browser.View"
+        permission="zope2.View"
+        />
+    
+    <adapter factory=".browser.AddFormEditable" />
+    
+    <adapter
+        for="Products.CMFCore.interfaces.IFolderish
+             Products.CMFDefault.interfaces.ICMFDefaultSkin
+             plone.app.page.interfaces.IPageFTI"
+        provides="zope.publisher.interfaces.browser.IBrowserPage"
+        factory=".browser.PageAddView"
+        />
+    <class class=".browser.PageAddView">
+        <require
+            permission="cmf.AddPortalContent"
+            interface="zope.publisher.interfaces.browser.IBrowserPage"
+            />
+    </class>
+    
+    <subscriber handler=".content.setDefaultLayoutForNewPage" />
+    
+    <!-- Page management views -->
+    
+    <browser:page
+        for="plone.app.blocks.layoutbehavior.ILayoutAware"
+        name="manage-layouts"
+        class=".pagemanagement.ManageLayoutsForm"
+        permission="plone.ManageSiteLayouts"
+        />
+    
+    <browser:page
+        for="plone.app.page.interfaces.IPage"
+        name="create-new-page-type"
+        class=".pagemanagement.CreateNewPageTypeForm"
+        permission="plone.CreatePageType"
+        />
     
     <!-- Register resource directory for images -->
     <browser:resourceDirectory
@@ -66,7 +115,7 @@
     <!-- Default site layout lookup for pages -->
     <browser:view
         name="page-site-layout"
-        for=".content.IPage"
+        for=".interfaces.IPage"
         permission="zope.Public"
         class=".resource.PageSiteLayout"
         />

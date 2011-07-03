@@ -1,0 +1,12 @@
+<rolemap>
+    <permissions>
+        <permission name="Plone: Create Page Type" acquire="False">
+            <role name="Manager" />
+            <role name="Site Administrator" />
+        </permission>
+        <permission name="Plone: Change Page Type" acquire="False">
+            <role name="Manager" />
+            <role name="Site Administrator" />
+        </permission>
+    </permissions>
+</rolemap>
