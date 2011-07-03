@@ -94,9 +94,7 @@ def clonePageType(portal_types, name, newName, title, description, **kwargs):
     newFTI.manage_changeProperties(**kwargs)
     
     # Actions
-    actions = []
-    for oldAction in oldFTI.listActions():
-        actions.add(oldAction.clone())
+    actions = [a.clone() for a in oldFTI.listActions()]
     newFTI._actions = tuple(actions)
     
     # Aliases

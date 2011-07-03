@@ -28,6 +28,9 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(newFTI.behaviors, oldFTI.behaviors)
         self.assertEqual(newFTI.default_site_layout, oldFTI.default_site_layout)
         self.assertEqual(newFTI.default_page_layout_template, oldFTI.default_page_layout_template)
+        
+        self.assertEqual(newFTI._aliases, oldFTI._aliases)
+        self.assertEqual(len(newFTI.listActions()), 4)
     
     def test_clonePageType_args(self):
         from plone.app.page.utils import clonePageType
