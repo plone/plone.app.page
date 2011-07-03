@@ -1,5 +1,3 @@
-from StringIO import StringIO
-
 from zope.component import getUtility
 from zope.component import queryUtility
 
@@ -141,10 +139,10 @@ def createTemplatePageLayout(title, description, content, filename=PAGE_LAYOUT_F
     
     # Write the manifest
     pagelayout.writeFile('manifest.cfg', """\
-[sitelayout]
+[%s]
 title = %s
 description = %s
 file = %s
-""" % (title, description, filename))
+""" % (PAGE_LAYOUT_RESOURCE_NAME, title, description, filename))
 
     return name

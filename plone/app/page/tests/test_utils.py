@@ -87,3 +87,44 @@ class TestUtils(unittest.TestCase):
         changePageType(portal['p1'], 'new-page')
         
         self.assertEqual(portal['p1'].portal_type, 'new-page')
+    
+    def test_createTemplatePageLayout(self):
+        from plone.app.page.interfaces import PAGE_LAYOUT_MANIFEST_FORMAT
+        from plone.app.page.utils import createTemplatePageLayout
+        
+        from plone.resource.utils import queryResourceDirectory
+        from plone.resource.manifest import getManifest
+        
+        from plone.app.testing import TEST_USER_ID
+        from plone.app.testing import setRoles
+        
+        portal = self.layer['portal']
+        
+        setRoles(portal, TEST_USER_ID, ('Manager',))
+        createTemplatePageLayout(u"A title", u"A description", u"<html><body><p>Stuff</p></body></html>")
+        setRoles(portal, TEST_USER_ID, ('Member',))
+        
+        directory = queryResourceDirectory('pagelayout', 'a-title')
+        
+        self.assertTrue('page.html' in directory)
+        self.assertTrue('manifest.cfg' in directory)
+        self.assertEqual(directory.readFile('page.html'), "<html><body><p>Stuff</p></body></html>")
+        
+        manifest = getManifest(directory.openFile('manifest.cfg'), PAGE_LAYOUT_MANIFEST_FORMAT)
+        self.assertEqual(manifest, {'title': "A title", 'description': "A description", 'file': 'page.html'})
+        
+        # Create a second one with the same title
+        
+        setRoles(portal, TEST_USER_ID, ('Manager',))
+        createTemplatePageLayout(u"A title", u"Another description", u"<html><body><p>Other stuff</p></body></html>")
+        setRoles(portal, TEST_USER_ID, ('Member',))
+        
+        directory = queryResourceDirectory('pagelayout', 'a-title-1')
+        
+        self.assertTrue('page.html' in directory)
+        self.assertTrue('manifest.cfg' in directory)
+        self.assertEqual(directory.readFile('page.html'), "<html><body><p>Other stuff</p></body></html>")
+        
+        manifest = getManifest(directory.openFile('manifest.cfg'), PAGE_LAYOUT_MANIFEST_FORMAT)
+        self.assertEqual(manifest, {'title': "A title", 'description': "Another description", 'file': 'page.html'})
+        
