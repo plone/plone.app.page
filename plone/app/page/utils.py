@@ -1,11 +1,22 @@
+from StringIO import StringIO
+
+from zope.component import getUtility
 from zope.component import queryUtility
 
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+
+from plone.resource.interfaces import IResourceDirectory
+from plone.resource.utils import queryResourceDirectory
+
 from plone.registry.interfaces import IRegistry
+
 from plone.dexterity.interfaces import IDexterityFTI
 
 from plone.app.blocks.interfaces import DEFAULT_SITE_LAYOUT_REGISTRY_KEY
 from plone.app.blocks.layoutbehavior import ILayoutAware
 
+from plone.app.page.interfaces import PAGE_LAYOUT_FILE_NAME
+from plone.app.page.interfaces import PAGE_LAYOUT_RESOURCE_NAME
 from plone.app.page.interfaces import IPageFTI
 
 from Acquisition import aq_inner
@@ -92,3 +103,48 @@ def changePageType(context, new_type, reindex=True):
     
     if reindex:
         context.reindexObject()
+
+def createTemplatePageLayout(title, description, content, filename=PAGE_LAYOUT_FILE_NAME):
+    """Create a new template page layout of the 'pagelayout' resource type
+    in the ZODB portal_resources storage.
+    
+    A unique name will be normalised from the title and returned.
+    """
+    
+    resources = getUtility(IResourceDirectory, name='persistent')
+        
+    # Create a normalized, unique name
+    name = basename = getUtility(IIDNormalizer).normalize(title)
+    idx = 1
+    while queryResourceDirectory(PAGE_LAYOUT_RESOURCE_NAME, name) is not None:
+        name = "%s-%d" % (basename, idx,)
+        idx += 1
+    
+    # Ensure we have the sitelayouts resource type directory
+    if PAGE_LAYOUT_RESOURCE_NAME not in resources:
+        resources.makeDirectory(PAGE_LAYOUT_RESOURCE_NAME)
+    pagelayouts = resources[PAGE_LAYOUT_RESOURCE_NAME]
+    
+    # Create a directory for the resource
+    pagelayouts.makeDirectory(name)
+    pagelayout = pagelayouts[name]
+    
+    # Write the contents.
+    if isinstance(content, unicode):
+        content = content.encode('utf-8')
+    if isinstance(title, unicode):
+        title = title.encode('utf-8')
+    if isinstance(description, unicode):
+        description = description.encode('utf-8')
+    
+    pagelayout.writeFile(filename, content)
+    
+    # Write the manifest
+    pagelayout.writeFile('manifest.cfg', """\
+[sitelayout]
+title = %s
+description = %s
+file = %s
+""" % (title, description, filename))
+
+    return name

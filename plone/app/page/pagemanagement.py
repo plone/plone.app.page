@@ -1,9 +1,21 @@
 from zope.interface import Interface
+from zope.component import getUtility
 from zope import schema
+
 from z3c.form import form, field, button
+
+from plone.i18n.normalizer.interfaces import IIDNormalizer
+
 from plone.app.blocks.layoutbehavior import ILayoutAware
+
+from plone.app.page.interfaces import PAGE_LAYOUT_RESOURCE_NAME
+from plone.app.page.interfaces import PAGE_LAYOUT_FILE_NAME
+
+from plone.app.page import utils
+from plone.app.page import PloneMessageFactory as _
+
+from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
-from plone.app.deco import PloneMessageFactory as _
 
 class ICreateNewPageTypeForm(Interface):
     """Create a new page type from the current page
@@ -42,8 +54,37 @@ class CreateNewPageTypeForm(form.Form):
             self.status = self.formErrorsMessage
             return
         
-        # TODO
+        title = data['title']
+        description = data['description']
+        change = data['change']
+        content = ILayoutAware(self.context).content
         
+        # Save the resource for the template page layout
+        filename = PAGE_LAYOUT_FILE_NAME
+        pagelayout = utils.createTemplatePageLayout(title, description, content, filename)
+        
+        # Clone the page type
+        
+        portal_types = getToolByName(self.context, 'portal_types')
+        
+        name = basename = getUtility(IIDNormalizer).normalize(title)
+        idx = 1
+        while name in portal_types:
+            name = "%s-%d" % (basename, idx,)
+            idx += 1
+        
+        utils.clonePageType(portal_types, self.context.portal_type, name,
+                title=title,
+                description=description,
+                default_page_layout_template="/++%s++%s/%s" % (PAGE_LAYOUT_RESOURCE_NAME, pagelayout, filename,),
+            )
+        
+        # Change the current item's page type if applicable        
+        if change:
+            utils.changePageType(self.context, name)
+        
+        self.request.response.redirect(self.context.absolute_url())
+    
     @button.buttonAndHandler(_(u'Cancel'))
     def cancel(self, action):
         self.request.response.redirect(self.context.absolute_url())
