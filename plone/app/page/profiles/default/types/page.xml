@@ -47,7 +47,7 @@
           url_expr="string:${object_url}/edit" visible="True">
     <permission value="Modify portal content"/>
   </action>
-  <action title="Save As Type" action_id="createPageType" category="object" condition_expr=""
+  <action title="Save as new type" action_id="createPageType" category="object" condition_expr=""
           url_expr="string:${object_url}/@@create-new-page-type" visible="True">
     <permission value="Plone: Create Page Type"/>
   </action>
