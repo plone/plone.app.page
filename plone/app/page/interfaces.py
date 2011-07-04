@@ -7,6 +7,8 @@ from plone.dexterity.interfaces import IDexterityFTI
 
 from plone.app.page import PloneMessageFactory as _
 
+DEFAULT_PAGE_TYPE_NAME = "page"
+
 PAGE_LAYOUT_RESOURCE_NAME = "pagelayout"
 PAGE_LAYOUT_FILE_NAME = "page.html"
 

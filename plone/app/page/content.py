@@ -17,7 +17,7 @@ def setDefaultLayoutForNewPage(obj, event):
     """When a new page is created, set its layout based on the default in
     the FTI
     """
-        
+    
     layoutAware = ILayoutAware(obj, None)
     if layoutAware is None:
         return

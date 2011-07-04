@@ -11,6 +11,9 @@ from plone.registry.interfaces import IRegistry
 from plone.dexterity.interfaces import IDexterityFTI
 
 from plone.app.blocks.interfaces import DEFAULT_SITE_LAYOUT_REGISTRY_KEY
+from plone.app.blocks.interfaces import SITE_LAYOUT_RESOURCE_NAME
+from plone.app.blocks.interfaces import SITE_LAYOUT_FILE_NAME
+
 from plone.app.blocks.layoutbehavior import ILayoutAware
 
 from plone.app.page.interfaces import PAGE_LAYOUT_FILE_NAME
@@ -111,9 +114,8 @@ def changePageType(context, new_type, reindex=True):
     if reindex:
         context.reindexObject()
 
-def createTemplatePageLayout(title, description, content, filename=PAGE_LAYOUT_FILE_NAME):
-    """Create a new template page layout of the 'pagelayout' resource type
-    in the ZODB portal_resources storage.
+def createLayout(title, description, content, resourceType, filename):
+    """Create a new layout in the ZODB portal_resources storage.
     
     A unique name will be normalised from the title and returned.
     """
@@ -123,18 +125,18 @@ def createTemplatePageLayout(title, description, content, filename=PAGE_LAYOUT_F
     # Create a normalized, unique name
     name = basename = getUtility(IIDNormalizer).normalize(title)
     idx = 1
-    while queryResourceDirectory(PAGE_LAYOUT_RESOURCE_NAME, name) is not None:
+    while queryResourceDirectory(resourceType, name) is not None:
         name = "%s-%d" % (basename, idx,)
         idx += 1
     
     # Ensure we have the sitelayouts resource type directory
-    if PAGE_LAYOUT_RESOURCE_NAME not in resources:
-        resources.makeDirectory(PAGE_LAYOUT_RESOURCE_NAME)
-    pagelayouts = resources[PAGE_LAYOUT_RESOURCE_NAME]
+    if resourceType not in resources:
+        resources.makeDirectory(resourceType)
+    layouts = resources[resourceType]
     
     # Create a directory for the resource
-    pagelayouts.makeDirectory(name)
-    pagelayout = pagelayouts[name]
+    layouts.makeDirectory(name)
+    layout = layouts[name]
     
     # Write the contents.
     if isinstance(content, unicode):
@@ -144,14 +146,35 @@ def createTemplatePageLayout(title, description, content, filename=PAGE_LAYOUT_F
     if isinstance(description, unicode):
         description = description.encode('utf-8')
     
-    pagelayout.writeFile(filename, content)
+    layout.writeFile(filename, content)
     
     # Write the manifest
-    pagelayout.writeFile('manifest.cfg', """\
+    layout.writeFile('manifest.cfg', """\
 [%s]
 title = %s
 description = %s
 file = %s
-""" % (PAGE_LAYOUT_RESOURCE_NAME, title, description, filename))
+""" % (resourceType, title or '', description or '', filename))
 
     return name
+
+
+def createTemplatePageLayout(title, description, content):
+    """Create a new template page layout of the 'pagelayout' resource type
+    in the ZODB portal_resources storage.
+    
+    A unique name will be normalised from the title and returned.
+    """
+    
+    return createLayout(title, description, content,
+        PAGE_LAYOUT_RESOURCE_NAME, PAGE_LAYOUT_FILE_NAME)
+
+def createSiteLayout(title, description, content):
+    """Create a new site layout of the 'sitelayout' resource type
+    in the ZODB portal_resources storage.
+    
+    A unique name will be normalised from the title and returned.
+    """
+    
+    return createLayout(title, description, content,
+        SITE_LAYOUT_RESOURCE_NAME, SITE_LAYOUT_FILE_NAME)
