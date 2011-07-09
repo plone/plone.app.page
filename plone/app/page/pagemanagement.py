@@ -64,8 +64,7 @@ class CreateNewPageTypeForm(form.Form):
         siteLayout = layoutAware.pageSiteLayout
         
         # Save the resource for the template page layout
-        filename = PAGE_LAYOUT_FILE_NAME
-        pagelayout = utils.createTemplatePageLayout(title, description, content, filename)
+        pagelayout = utils.createTemplatePageLayout(title, description, content)
         
         # Clone the page type
         
@@ -77,6 +76,7 @@ class CreateNewPageTypeForm(form.Form):
             name = "%s-%d" % (basename, idx,)
             idx += 1
         
+        filename = PAGE_LAYOUT_FILE_NAME
         utils.clonePageType(portal_types, self.context.portal_type, name,
                 title=title,
                 description=description,
