@@ -1,6 +1,10 @@
 import unittest2 as unittest
 
 from plone.app.page.testing import PAGE_INTEGRATION_TESTING
+from plone.app.page.testing import PAGE_FUNCTIONAL_TESTING
+from plone.app.testing import SITE_OWNER_NAME, SITE_OWNER_PASSWORD
+from plone.testing.z2 import Browser
+
 
 class IntegrationTests(unittest.TestCase):
 
@@ -82,4 +86,37 @@ class IntegrationTests(unittest.TestCase):
                 provided=IResourceDirectory,
                 name=u'++pagelayout++default',
             )
-        
+
+
+class FunctionalTests(unittest.TestCase):
+
+    layer = PAGE_FUNCTIONAL_TESTING
+
+    def test_add_extra_field_to_page_type(self):
+        # ensure adding extra fields works as with normal types
+        browser = Browser(self.layer['app'])
+        browser.addHeader('Authorization', 'Basic %s:%s' %
+            (SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
+        browser.open('http://nohost/plone/dexterity-types/page')
+        browser.getControl('Add new field').click()
+        browser.getControl('Title').value = 'Color'
+        browser.getControl('Short Name').value = 'color'
+        browser.getControl('Field type').value = ['Text line (String)']
+        browser.getControl('Add').click()
+        schema = self.layer['portal'].portal_types.page.lookupSchema()
+        self.assertTrue('color' in schema.names())
+        # the add view to create new instances cannot have the extra
+        # field since deco doesn't work in the 'add' overlay
+        browser.open('http://nohost/plone/++add++page')
+        with self.assertRaises(LookupError):
+            browser.getControl('Color')
+        # so we first add a new instances...
+        browser.getControl('Title').value = 'foo'
+        browser.getControl('Save').click()
+        # ...which takes us directly to the edit form,
+        # where the field should be present...
+        browser.getControl('Color').value = 'green'
+        browser.getControl('Save').click()
+        foo = self.layer['portal']['foo']
+        self.assertEqual(foo.portal_type, 'page')
+        self.assertEqual(foo.color, 'green')
