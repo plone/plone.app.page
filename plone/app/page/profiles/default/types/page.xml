@@ -16,7 +16,7 @@
 
   <property name="add_permission">cmf.AddPortalContent</property>
 
-  <property name="schema">plone.app.page.interfaces.IPage</property>
+  <property name="klass">plone.app.page.content.Page</property>
 
   <!-- List of enabled behaviors -->
   <property name="behaviors">

@@ -14,7 +14,6 @@ from plone.app.blocks.layoutbehavior import ILayoutAware
 from plone.app.page.interfaces import IPageFTI
 from plone.app.page.interfaces import PAGE_LAYOUT_RESOURCE_NAME
 from plone.app.page.interfaces import PAGE_LAYOUT_FILE_NAME
-from plone.app.page.interfaces import IPage
 
 from Products.CMFCore.browser.typeinfo import FactoryTypeInformationAddView
 
@@ -54,11 +53,15 @@ class PageFTI(DexterityFTI):
         )
     
     immediate_view = 'edit'
-    klass = 'plone.dexterity.content.Container'
-    schema = IPage.__identifier__
+    klass = 'plone.app.page.content.Page'
     behaviors = [INameFromTitle.__identifier__, IDublinCore.__identifier__, ILayoutAware.__identifier__]
     
-    model_source = ""
+    model_source = """\
+    <model xmlns="http://namespaces.plone.org/supermodel/schema">
+        <schema>
+        </schema>
+    </model>
+    """
     
     default_page_layout_template = "/++%s++default/%s" % (PAGE_LAYOUT_RESOURCE_NAME, PAGE_LAYOUT_FILE_NAME,)
     
