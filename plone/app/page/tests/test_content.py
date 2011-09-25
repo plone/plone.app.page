@@ -87,6 +87,10 @@ class IntegrationTests(unittest.TestCase):
                 name=u'++pagelayout++default',
             )
 
+    def test_page_type_has_dynamic_schema(self):
+        page = self.layer['portal'].portal_types.page
+        self.assertTrue(page.hasDynamicSchema)
+
 
 class FunctionalTests(unittest.TestCase):
 
