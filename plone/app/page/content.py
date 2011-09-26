@@ -2,8 +2,10 @@ import logging
 import urlparse
 
 from zope.component import adapter
+from zope.interface import implements
 from zope.lifecycleevent.interfaces import IObjectAddedEvent
 
+from plone.dexterity.content import Container
 from plone.app.blocks.layoutbehavior import ILayoutAware
 from plone.app.blocks.utils import resolveResource
 
@@ -11,6 +13,13 @@ from plone.app.page.interfaces import IPage
 from plone.app.page.utils import getDefaultPageLayout
 
 LOGGER = logging.getLogger('plone.app.page')
+
+
+class Page(Container):
+    """ Base class for all Page-like types.  Note that the marker interface
+        must not be set on the schema, because this makes it non-dynamic) """
+    implements(IPage)
+
 
 @adapter(IPage, IObjectAddedEvent)
 def setDefaultLayoutForNewPage(obj, event):
