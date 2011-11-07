@@ -32,9 +32,14 @@ setup(name='plone.app.page',
           'plone.memoize',
           'plone.app.dexterity',
           'plone.app.blocks',
+          'plone.app.deco',
           'Products.CMFCore',
       ],
       extras_require = {
           'test': ['plone.app.testing', ],
       },
+      entry_points="""
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
       )

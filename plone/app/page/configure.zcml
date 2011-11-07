@@ -12,6 +12,9 @@
     <include package="plone.resource" />
     <include package="plone.subrequest" />
     
+    <include package=".browser" />
+    <include package=".bbb" />
+
     <!-- Permissions -->
     <permission
         id="plone.CreatePageType"
@@ -22,30 +25,6 @@
         id="plone.ChangePageType"
         title="Plone: Change Page Type"
         />
-    
-    <!-- Register the page type's views and subscribers -->
-    <browser:page
-        for=".interfaces.IPage"
-        name="view"
-        class=".browser.View"
-        permission="zope2.View"
-        />
-    
-    <adapter factory=".browser.AddFormEditable" />
-    
-    <adapter
-        for="Products.CMFCore.interfaces.IFolderish
-             Products.CMFDefault.interfaces.ICMFDefaultSkin
-             plone.app.page.interfaces.IPageFTI"
-        provides="zope.publisher.interfaces.browser.IBrowserPage"
-        factory=".browser.PageAddView"
-        />
-    <class class=".browser.PageAddView">
-        <require
-            permission="cmf.AddPortalContent"
-            interface="zope.publisher.interfaces.browser.IBrowserPage"
-            />
-    </class>
     
     <subscriber handler=".content.setDefaultLayoutForNewPage" />
     
@@ -98,6 +77,16 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
     
+    <!-- BBB profile -->
+    <genericsetup:registerProfile
+        name="z_bbb"
+        title="Page - BBB registrations"
+        description="Performs backwards compatibility migrations"
+        directory="bbb/profiles/bbb"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
     <!-- Register resource traverser -->
     <adapter
         name="pagelayout"
