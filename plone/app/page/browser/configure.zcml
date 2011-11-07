@@ -1,0 +1,82 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="plone">
+
+    <!-- Register the page type's views and subscribers -->
+    <browser:page
+        for="..interfaces.IPage"
+        name="view"
+        class=".page.View"
+        permission="zope2.View"
+        />
+
+    <adapter factory=".page.AddFormEditable" />
+
+    <adapter
+        for="Products.CMFCore.interfaces.IFolderish
+             Products.CMFDefault.interfaces.ICMFDefaultSkin
+             plone.app.page.interfaces.IPageFTI"
+        provides="zope.publisher.interfaces.browser.IBrowserPage"
+        factory=".page.PageAddView"
+        />
+    <class class=".page.PageAddView">
+        <require
+            permission="cmf.AddPortalContent"
+            interface="zope.publisher.interfaces.browser.IBrowserPage"
+            />
+    </class>
+
+    <!-- Control panel -->
+
+    <browser:page
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="deco-controlpanel"
+        class=".manage.ManageDeco"
+        template="templates/manage.pt"
+        permission="plone.ManageDeco"
+        />
+
+    <browser:page
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="add-page-layout"
+        class=".manage.AddPageLayoutForm"
+        permission="plone.ManageDeco"
+        />
+
+    <browser:page
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="add-site-layout"
+        class=".manage.AddSiteLayoutForm"
+        permission="plone.ManageDeco"
+        />
+
+    <browser:page
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="edit-page-layout"
+        class=".manage.EditPageLayoutForm"
+        permission="plone.ManageDeco"
+        />
+
+    <browser:page
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="edit-site-layout"
+        class=".manage.EditSiteLayoutForm"
+        permission="plone.ManageDeco"
+        />
+
+    <browser:page
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="add-page-type"
+        class=".manage.AddPageTypeForm"
+        permission="plone.ManageDeco"
+        />
+
+    <browser:page
+        for="plone.app.page.interfaces.IPageFTI"
+        name="edit-page-type"
+        class=".manage.EditPageTypeForm"
+        permission="plone.ManageDeco"
+        />
+
+</configure>
