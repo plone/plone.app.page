@@ -8,6 +8,7 @@
 
     <include package="plone.app.dexterity" />
     <include package="plone.app.blocks" />
+    <include package="plone.app.standardtiles" />
     
     <include package="plone.resource" />
     <include package="plone.subrequest" />
@@ -24,6 +25,18 @@
     <permission
         id="plone.ChangePageType"
         title="Plone: Change Page Type"
+        />
+    
+    <!-- Resources -->
+    <plone:static
+        type="sitelayout"
+        name="default"
+        directory="static/sitelayout"
+        />
+    <plone:static
+        type="pagelayout"
+        name="default"
+        directory="static/pagelayout"
         />
     
     <subscriber handler=".content.setDefaultLayoutForNewPage" />

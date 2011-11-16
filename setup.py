@@ -33,6 +33,7 @@ setup(name='plone.app.page',
           'plone.app.dexterity',
           'plone.app.blocks',
           'plone.app.deco',
+          'plone.app.standardtiles',
           'Products.CMFCore',
       ],
       extras_require = {
