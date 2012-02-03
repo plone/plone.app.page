@@ -40,10 +40,39 @@ from plone.app.page.utils import clonePageType
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
-from plone.app.deco.interfaces import DEFAULT_SITE_LAYOUT_CONTENT
-from plone.app.deco.interfaces import DEFAULT_PAGE_LAYOUT_CONTENT
-
 from plone.app.deco import PloneMessageFactory as _
+
+DEFAULT_PAGE_LAYOUT_CONTENT = u"""\
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" data-layout="./@@page-site-layout">
+<head>
+<link rel="panel" rev="content" target="content" />
+</head>
+<body>
+<div id="content">
+</div>
+</body>
+</html>
+"""
+
+DEFAULT_SITE_LAYOUT_CONTENT = u"""\
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<link rel="panel" rev="content" target="content" />
+
+<link rel="tile" href="./@@plone.app.standardtiles.headtitle" />
+<link rel="tile" href="./@@plone.app.standardtiles.stylesheets" />
+<link rel="tile" href="./@@plone.app.standardtiles.javascripts" />
+
+<link rel="tile" target="menu-link" href="./@@plone.app.standardtiles.menu_link" />
+</head>
+<body>
+<div id="menu-link" />
+<div id="content" />
+</body>
+</html>
+"""
 
 class ManageDeco(BrowserView):
     """Control panel view:
