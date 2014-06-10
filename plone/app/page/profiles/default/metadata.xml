@@ -1,8 +1,6 @@
 <metadata>
   <version>1</version>
   <dependencies>
-    <dependency>profile-plone.app.deco:default</dependency>
-
     <!-- BBB: Remove once we don't need BBB anymore -->
     <dependency>profile-plone.app.page:z_bbb</dependency>
   </dependencies>

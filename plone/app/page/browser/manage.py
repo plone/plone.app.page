@@ -40,7 +40,9 @@ from plone.app.page.utils import clonePageType
 from Products.CMFCore.utils import getToolByName
 from Products.statusmessages.interfaces import IStatusMessage
 
-from plone.app.deco import PloneMessageFactory as _
+from zope.i18nmessageid import MessageFactory
+_ = MessageFactory('plone')
+
 
 DEFAULT_PAGE_LAYOUT_CONTENT = u"""\
 <!DOCTYPE html>
@@ -438,23 +440,23 @@ class EditSiteLayoutForm(form.Form):
                 'description': description,
                 'content': content,
             }
-    
+
     @button.buttonAndHandler(_(u"Save"))
     def handleSave(self, action):
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
             return
-        
+
         name = data['name']
         title = data['title']
-        description = data['description']
-        content = data['content']
+        description = data['description'] or ''
+        content = data['content'] or ''
         filename = data['filename']
-        
+
         title = title.encode('utf-8')
         description = description.encode('utf-8')
-        
+
         directory = queryResourceDirectory(SITE_LAYOUT_RESOURCE_NAME, name)
         directory.writeFile(MANIFEST_FILENAME, """\
 [%s]

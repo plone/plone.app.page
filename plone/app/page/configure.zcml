@@ -65,7 +65,7 @@
     
     <!-- Register FTI class and add view -->
     <browser:page
-        for="zope.app.container.interfaces.IAdding"
+        for="zope.browser.interfaces.IAdding"
         name="plone.app.page.fti"
         template="templates/fti.pt"
         class=".fti.FTIAddView"
@@ -87,6 +87,7 @@
         title="Page"
         description="Page type using Deco and Blocks"
         directory="profiles/default"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
     
