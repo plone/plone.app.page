@@ -2,6 +2,6 @@
   <version>1</version>
   <dependencies>
     <!-- BBB: Remove once we don't need BBB anymore -->
-    <dependency>profile-plone.app.page:z_bbb</dependency>
+    <!-- <dependency>profile-plone.app.page:z_bbb</dependency> -->
   </dependencies>
 </metadata>
